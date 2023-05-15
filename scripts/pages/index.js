@@ -3,7 +3,8 @@ async function getRecipes() {
     let dataJson = await data.json();
     let recipes = dataJson.recipes;
 
-    console.log({recipes: [...recipes]})
+    console.log({recipes: [...recipes]});
+    return({recipes: [...recipes]});
 };
 
 async function displayRecipes(recipes) {
@@ -17,7 +18,7 @@ async function displayRecipes(recipes) {
 }
 
 async function init() {
-    const {recipes } = await getRecipes();
+    const {recipes} = await getRecipes();
     displayRecipes(recipes);
 };
 
