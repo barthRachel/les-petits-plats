@@ -1,13 +1,24 @@
-function recipeFactory(data) {
-    const {name, ingredients, time, description} = data;
+//affichage liée aux recettes
+class RecipesView {
+    async displayRecipes(recipes) {
+        const recipeSection = document.querySelector('.recipe_section');
+    
+        recipes.forEach((recipe) => {
+            const recipeCard = this.getRecipeCard(recipe);
+            recipeSection.appendChild(recipeCard);
+        });
+    }
 
-    function getRecipeCardDOM() {
+    getRecipeCard(data) {
+        const {name, ingredients, time, description} = data;
+        
         const article = document.createElement('article');
-
+        
         const img = document.createElement('img');
         img.src = "https://dummyimage.com/500x400/c7bebe/c7bebe";
 
         const titleAndTimeDiv = document.createElement('div');
+        titleAndTimeDiv.classList.add('titleAndTime')
 
         const title = document.createElement('h1');
         title.innerText = name;
@@ -16,13 +27,12 @@ function recipeFactory(data) {
         timeParagraph.innerHTML = `<i class="fa fa-clock-o" aria-hidden="true"></i> ${time} min `
 
         const ingredientsAndDescriptionDiv = document.createElement('div');
+        ingredientsAndDescriptionDiv.classList.add('ingredientsAndDescription')
 
         const ingredientsList = document.createElement('ul');
         ingredients.forEach(ing => {
             const li = document.createElement('li');
-            const ingredientSpan = document.createElement('span');
-            ingredientSpan.innerText = ing.ingredient;
-            li.appendChild(ingredientSpan);
+
 
             let unitIngredient;
             if(ing.unit === "grammes") {
@@ -33,16 +43,14 @@ function recipeFactory(data) {
                 unitIngredient = " " + ing.unit;
             }
 
-            li.innerText = li.innerText + `${ing.quantity ? " : " + ing.quantity : ""}${ing.unit ? unitIngredient : ""}`;
+            li.innerHTML = `<span class="ingredientSpan">${ing.ingredient}</span> ${ing.quantity ? " : " + ing.quantity : ""}${ing.unit ? unitIngredient : ""}`;
 
             ingredientsList.appendChild(li);
             
         });
 
-
         const descriptionText = document.createElement('p');
         descriptionText.innerText = description
-
 
         titleAndTimeDiv.appendChild(title);
         titleAndTimeDiv.appendChild(timeParagraph);
@@ -54,10 +62,9 @@ function recipeFactory(data) {
         article.appendChild(titleAndTimeDiv);
         article.appendChild(ingredientsAndDescriptionDiv);
 
-        console.log(ingredients)
+        //console.log(ingredients)
 
         return(article)
     }
 
-    return { getRecipeCardDOM }
 }

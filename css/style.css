@@ -1,0 +1,170 @@
+/* Global style */
+body, header {
+    display: flex;
+    justify-content: center;
+}
+
+.main-container {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "Lato", sans-serif, arial;
+    width: 100%;
+    max-width: 1440px;
+}
+
+header {
+}
+
+main {
+}
+
+/* Search section's style */
+.search_section {
+    border: 2px solid blue;
+    padding: 25px 100px;
+}
+
+.search_all {
+    margin: 0;
+    display: flex;
+}
+
+.search_all .searchbar-input, .search_all button {
+    height: 69px;
+    border: none;
+    background-color: #E7E7E7;
+}
+
+.search_all .searchbar-input {
+    width: 100%;
+    padding: 20px;
+    font-size: 18px;
+    border-radius: 5px 0 0 5px;
+}
+
+.search_all button {
+    padding: 0 20px;
+    border-radius: 0 5px 5px 0;
+}
+
+.search_all button:hover, .tag i:hover {
+    cursor: pointer;
+}
+
+.search_all .fa-search {
+    font-size: 32px;
+}
+
+.taglist {
+    border: 2px solid red;
+    display: flex;
+    margin-top: 25px;
+}
+
+.tag {
+    display: flex;
+    align-items: center;
+    width: auto;
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin-right: 20px;
+}
+
+.tag span, .tag i {
+    color: white;
+    font-size: 14px;
+}
+
+.tag span {
+    margin-right: 15px;
+}
+
+
+
+/* Filters' background-color */
+.ingredients-bg {
+    background-color: #3282F7;
+}
+
+.appliance-bg {
+    background-color: #68D9A4;
+}
+
+.ustensils-bg {
+    background-color: #ED6454;
+}
+
+/* Recipe section's style */
+.recipe_section {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 50px;
+    padding: 25px 100px;
+}
+
+.recipe_section article {
+    background-color: #E7E7E7;
+    border-radius: 5px;
+    height: 100%;
+    width: 100%;
+}
+
+.recipe_section article img {
+    width: 100%;
+    height: 100%;
+    max-height: 178px;
+    object-fit: cover;
+    border-radius: 5px 5px 0 0;
+}
+
+.recipe_section article .titleAndTime, .recipe_section article .ingredientsAndDescription {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 20px;
+}
+
+.recipe_section article .titleAndTime h1, .recipe_section article .titleAndTime p {
+    font-size: 18px;
+    margin: 0;
+}
+
+.recipe_section article .titleAndTime h1 {
+    font-weight: 400;
+}
+
+.recipe_section article .titleAndTime p {
+    font-weight: 700;
+}
+
+.recipe_section article .titleAndTime p .fa-clock-o {
+    font-size: 20px;
+}
+
+.recipe_section article .ingredientsAndDescription ul, 
+.recipe_section article .ingredientsAndDescription p {
+    flex: 1;
+    font-size: 12px;
+    font-weight: 400;
+    margin: 0;
+}
+
+.recipe_section article .ingredientsAndDescription {
+    height: 100%;
+    max-height: 105px;
+}
+
+.recipe_section article .ingredientsAndDescription ul {
+    list-style: none;
+    padding: 0 5px 0 0;
+}
+
+.recipe_section article .ingredientsAndDescription ul li span {
+    font-weight: 700;
+}
+
+
+.recipe_section article .ingredientsAndDescription p {
+    overflow: hidden;
+}

@@ -3,27 +3,61 @@
   <head>
     <link href="css/style.css" rel="stylesheet" type="text/css" >
     <meta charset="utf-8">
-    <link rel="icon" type="image/png" href="assets/favicon.ico">
-    <link href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/ico" href="assets/favicon.ico">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>Les petits plats</title>
   </head>
 
   <body>
-    <header>
-      <img src="assets/images/logo.png" class="logo" alt="Les petits plats recipes's page" >
-    </header>
+    <div class="main-container">
+      <header>
+        <img src="assets/images/logo.png" class="logo" alt="Les petits plats recipes's page" >
+      </header>
+  
+      <main>
+        <section class="search_section">
+          <!--Search bar + filtres par ingr/usten/appa-->
+          <div class="search_all">
+            <input type="search" class="searchbar-input" placeholder="Rechercher une recette"/>
+            <button><i class="fa fa-search" aria-hidden="true"></i></button>
+          </div>
+          
+          <div class="taglist">
+            <!--Tag pour test de style-->
+            <div class="tag ingredients-bg">
+              <span>Coco</span>
+              <i class="fa fa-times-circle-o" aria-hidden="true"></i>
+            </div>
 
-    <main>
-        <section>
-            <!--Search bar + filtres par ingr/usten/appa-->
+            <div class="tag appliance-bg">
+              <span>Blender</span>
+              <i class="fa fa-times-circle-o" aria-hidden="true"></i>
+            </div>
+
+            <div class="tag ustensils-bg">
+              <span>Verres</span>
+              <i class="fa fa-times-circle-o" aria-hidden="true"></i>
+            </div>
+          </div>
+
+          <div class="">
+
+          </div>
+        
         </section>
         <section class="recipe_section">
-            <!--recettes-->
+          <!--recettes-->
         </section>
-    </main>
-
+      </main>
+    </div>
   </body>
-  <script src="scripts/pages/index.js"></script>
-  <script src="scripts/factories/recipe.js"></script>
+  
+  <script src="scripts/model.js"></script>
+  <script src="scripts/recipesView.js"></script>
+  <script src="scripts/controller.js"></script>
+  <script>
+    let controller = new Controller();
+    controller.init();
+  </script>
 </html>
