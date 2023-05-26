@@ -2,36 +2,51 @@ let model = new Model();
 let recipeView = new RecipesView();
 
 async function searchWithBar(){
-    //console.log("Ouaiiiis")
-    let sortByTitle, sortByDesc, sortByIngr;
-    let finalSort = new Set()
     if(document.querySelector('.searchbar-input').value.length >= 3) {
-        sortByTitle = await getRecipeByTitle(document.querySelector('.searchbar-input').value.toLowerCase())
-        sortByDesc = await getRecipeByDesc(document.querySelector('.searchbar-input').value.toLowerCase())
-        sortByIngr = await getRecipeByIngr(document.querySelector('.searchbar-input').value.toLowerCase())
-        
-        sortByTitle.forEach(recipe => {
-            finalSort.add(recipe)
-        });
-        sortByDesc.forEach(recipe => {
-            finalSort.add(recipe)
-        });
-        sortByIngr.forEach(recipe => {
-            finalSort.add(recipe)
-        })
-
-        
+        let finalSort = finalSortSet(await getRecipeByTitle(document.querySelector('.searchbar-input').value.toLowerCase()), await getRecipeByDesc(document.querySelector('.searchbar-input').value.toLowerCase()), await getRecipeByIngr(document.querySelector('.searchbar-input').value.toLowerCase()))
         
         recipeView.displayRecipes(finalSort)
+        if(finalSort.size == 0) {
+            recipeView.displayNoResults()
+        }
     } else {
         recipeView.displayRecipes(await model.getRecipes())
     }
 
-    console.log(finalSort)
-    //console.log(sortByTitle)
-    //console.log(sortByDesc)
-    //console.log(sortByIngr)
-    //console.log(document.querySelector('.searchbar-input').value)
+    //console.log(finalSort)
+}
+
+//Fonction pour trier et supprimer les recettes doublons dans les différents tri fait
+function finalSortSet(sortByTitle = null, sortByDesc = null, sortByIngr = null, sortByAppliance = null, sortByUstensils = null) {
+    let finalSort = new Set();
+
+    if(sortByTitle != null) {
+        sortByTitle.forEach(recipe => {
+            finalSort.add(recipe)
+        });
+    }
+    if(sortByDesc != null) {
+        sortByDesc.forEach(recipe => {
+            finalSort.add(recipe)
+        }); 
+    }
+    if(sortByIngr != null) {
+        sortByIngr.forEach(recipe => {
+            finalSort.add(recipe)
+        })
+    }
+    if(sortByAppliance != null) {
+        sortByAppliance.forEach(recipe => {
+            finalSort.add(recipe)
+        })
+    }
+    if(sortByUstensils != null) {
+        sortByUstensils.forEach(recipe => {
+            finalSort.add(recipe)
+        })
+    }
+
+    return(finalSort)
 }
 
 async function getRecipeByTitle(titleNeeded) {
@@ -75,17 +90,10 @@ async function getRecipeByIngr(ingredientNeeded) {
     return(recipesByIng)
 }
 
-//window.onload = function () {
-    /*let articles = document.querySelectorAll('.recipe');
-    console.log(articles.length)*/
 
-    let searchbarInput = document.querySelector('.searchbar-input');
-    let searchButton = document.querySelector('.search-button');
-    //console.log(searchbarInput)
-    //console.log(searchButton);
+let searchbarInput = document.querySelector('.searchbar-input');
+let searchButton = document.querySelector('.search-button');
 
-    searchbarInput.addEventListener('keyup', searchWithBar); //event se déclenche quand on tape sur une touche
-//}
-
-//getRecipeByTitle('test')
+searchbarInput.addEventListener('keyup', searchWithBar); //event se déclenche quand on tape sur une touche
+searchButton.addEventListener('click', searchWithBar);
 

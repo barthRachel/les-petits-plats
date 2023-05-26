@@ -1,12 +1,26 @@
 //affichage liée aux recettes
 class RecipesView {
     async displayRecipes(recipes) {
+        document.querySelector('.no-results_section').innerHTML = "";
         const recipeSection = document.querySelector('.recipe_section');
         recipeSection.innerHTML = ""
         recipes.forEach((recipe) => {
             const recipeCard = this.getRecipeCard(recipe);
             recipeSection.appendChild(recipeCard);
         });
+    }
+
+    displayNoResults() {
+        document.querySelector('.recipe_section').innerHTML = "";
+        const noResultsSection = document.querySelector('.no-results_section');
+        noResultsSection.innerHTML = ""
+        
+        const divMessage = document.createElement('div');
+        const message = document.createElement('p');
+        message.innerText = "Aucune recette ne correspond à votre critère... vous pouvez chercher « tarte aux pommes », « poisson » ou autre..."
+        
+        divMessage.appendChild(message)
+        noResultsSection.appendChild(divMessage);
     }
 
     getRecipeCard(data) {
@@ -51,7 +65,7 @@ class RecipesView {
         });
 
         const descriptionText = document.createElement('p');
-        descriptionText.innerText = description
+        descriptionText.innerText = description.substr(0, 150).concat("...");
 
         titleAndTimeDiv.appendChild(title);
         titleAndTimeDiv.appendChild(timeParagraph);
