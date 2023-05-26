@@ -2,7 +2,7 @@
 class RecipesView {
     async displayRecipes(recipes) {
         const recipeSection = document.querySelector('.recipe_section');
-    
+        recipeSection.innerHTML = ""
         recipes.forEach((recipe) => {
             const recipeCard = this.getRecipeCard(recipe);
             recipeSection.appendChild(recipeCard);
@@ -13,6 +13,7 @@ class RecipesView {
         const {name, ingredients, time, description} = data;
         
         const article = document.createElement('article');
+        article.classList.add('recipe');
         
         const img = document.createElement('img');
         img.src = "https://dummyimage.com/500x400/c7bebe/c7bebe";

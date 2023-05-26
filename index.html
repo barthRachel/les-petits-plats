@@ -3,7 +3,7 @@
   <head>
     <link href="css/style.css" rel="stylesheet" type="text/css" >
     <meta charset="utf-8">
-    <link rel="icon" type="image/ico" href="assets/favicon.ico">
+    <link rel="icon" type="image/png" href="assets/icons/favicon.png">
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>Les petits plats</title>
@@ -20,7 +20,7 @@
           <!--Search bar + filtres par ingr/usten/appa-->
           <div class="search_all">
             <input type="search" class="searchbar-input" placeholder="Rechercher une recette"/>
-            <button><i class="fa fa-search" aria-hidden="true"></i></button>
+            <button class="search-button"><i class="fa fa-search" aria-hidden="true"></i></button>
           </div>
           
           <div class="taglist">
@@ -73,4 +73,5 @@
     let controller = new Controller();
     controller.init();
   </script>
+  <script src="scripts/utils/search.js"></script>
 </html>

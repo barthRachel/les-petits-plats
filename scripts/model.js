@@ -2,7 +2,6 @@
 class Model{
     constructor() {
         this.recipes = null;
-        this.ingredients = null;
     }
 
     async getRecipes() {
@@ -15,14 +14,41 @@ class Model{
         return(this.recipes);
     };
 
-    async getIngredients() {
-        if(this.ingredients == null){
-            this.recipes.forEach(recipe => {
-
-            });
+    async getIngredients(listRecipe = null) { //tout les ingr d'une liste de recette
+        if(listRecipe == null){
+            listRecipe = await this.getRecipes();
         }
+        let allIngredient = new Set();
+        for (const recipe of listRecipe) {
+            for (const ingredient of recipe.ingredients) {
+                allIngredient.add(ingredient.ingredient)
+            }
+        }
+        return(allIngredient);
+    }
 
-        return(this.ingredients);
+    async getUstensils(listRecipe = null) { //tout les ustensiles d'une liste de recette
+        if(listRecipe == null){
+            listRecipe = await this.getRecipes();
+        }
+        let allUstensil = new Set();
+        for (const recipe of listRecipe) {
+            for (const ustensil of recipe.ustensils) {
+                allUstensil.add(ustensil);
+            }
+        }
+        return(allUstensil)
+    }
+
+    async getAppliance(listRecipe = null) { //tout les appareils d'une liste de recette
+        if(listRecipe == null) {
+            listRecipe = await this.getRecipes();
+        }
+        let allAppliance = new Set();
+        for (const appliance of listRecipe) {
+            allAppliance.add(appliance.appliance)
+        }
+        return(allAppliance)
     }
 }
 
