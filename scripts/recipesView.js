@@ -8,6 +8,8 @@ class RecipesView {
             const recipeCard = this.getRecipeCard(recipe);
             recipeSection.appendChild(recipeCard);
         });
+
+        this.addListenerBonjour() 
     }
 
     displayNoResults() {
@@ -80,6 +82,14 @@ class RecipesView {
         //console.log(ingredients)
 
         return(article)
+    }
+
+    addListenerBonjour() {
+        let btnBonjour = document.querySelector('#btnBonjour')
+
+        btnBonjour.addEventListener('click', () => {
+            controller.direBonjour();
+        })
     }
 
 }

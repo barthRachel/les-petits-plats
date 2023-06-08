@@ -10,4 +10,8 @@ class Controller {
         recipeView.displayRecipes(recipes);
 
     };
+
+    direBonjour() {
+        console.log("Bonjour")
+    }
 }
