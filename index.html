@@ -16,12 +16,12 @@
       </header>
   
       <main>
-        <button id="btnBonjour">Bonjour</button>
+        <!--<button id="btnBonjour">Bonjour</button>--> <!--Button pour test - à retirer après-->
         <section class="search_section">
           <!--Search bar + filtres par ingr/usten/appa-->
           <div class="search_all">
             <input type="search" class="searchbar-input" placeholder="Rechercher une recette"/>
-            <button class="search-button"><i class="fa fa-search" aria-hidden="true"></i></button>
+            <button><i class="fa fa-search" aria-hidden="true"></i></button>
           </div>
           
           <div class="taglist">
@@ -43,12 +43,25 @@
           </div>
 
           <div class="sort-all">
-            <div>
-              
-            </div>
-            <div class="sort sort-ingredients ingredients-bg">
+            <!--<div class="sort sort-ingredients ingredients-bg">
               <span>Ingrédients</span>
               <i class="fa fa-chevron-down" aria-hidden="true"></i>
+            </div>-->
+
+            <div class="ingredients-bg sort-specific sort-ingredients-specific">
+              <div class="input-title">
+                <input type="search" placeholder="Rechercher un ingrédient"/>
+                <i class="fa fa-chevron-up" aria-hidden="true"></i>
+              </div>
+              <div class="result-container ingredients-container">
+                <!--<span class="result-item">Lait de coco</span>
+                <span class="result-item">Jus de citron</span>
+                <span class="result-item">Crème de coco</span>
+                <span class="result-item">Sucre</span>
+                <span class="result-item">Glaçons</span>
+                <span class="result-item">Thon Rouge</span>-->
+
+              </div>
             </div>
 
             <div class="sort sort-appliance appliance-bg">
@@ -79,6 +92,8 @@
   <script>
     let controller = new Controller();
     controller.init();
+
+    controller.showIngredients();
   </script>
   <script src="scripts/utils/search.js"></script>
 </html>

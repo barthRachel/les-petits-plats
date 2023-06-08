@@ -50,5 +50,71 @@ class Model{
         }
         return(allAppliance)
     }
+
+    /*async getRecipeByTitle(titleNeeded) {
+        const allRecipes = await this.getRecipes();
+        let recipesByName = new Set();
+    
+        allRecipes.forEach(recipe => {
+            if(recipe.name.toLowerCase().includes(titleNeeded)){
+                recipesByName.add(recipe)
+            }
+        });
+    
+        return(recipesByName)
+    }
+    
+    async getRecipeByDesc(wordNeeded) {
+        const allRecipes = await this.getRecipes();
+        let recipesByDesc = new Set();
+    
+        allRecipes.forEach(recipe => {
+            if(recipe.description.toLowerCase().includes(wordNeeded)){
+                recipesByDesc.add(recipe)
+            }
+        });
+    
+        return(recipesByDesc)
+    }
+    
+    async getRecipeByIngr(ingredientNeeded) {
+        const allRecipes = await this.getRecipes();
+        let recipesByIng = new Set();
+    
+        for (const recipe of allRecipes) {
+            for (const ingredient of recipe.ingredients) {
+                if(ingredient.ingredient.toLowerCase().includes(ingredientNeeded)){
+                    recipesByIng.add(recipe)
+                }
+            }
+        }
+    
+        return(recipesByIng)
+    }*/
+
+    getBrowseList(wordSearched, allRecipes) {
+        //const allRecipes = await this.getRecipes();
+
+        console.log(allRecipes)
+        //console.log(wordSearched)
+
+        let finalSort = new Set();
+        allRecipes.forEach(recipe => {
+            if(recipe.name.toLowerCase().includes(wordSearched)){
+                finalSort.add(recipe)
+            } else if(recipe.description.toLowerCase().includes(wordSearched)){
+                finalSort.add(recipe)
+            } else {
+                (recipe.ingredients).forEach(ing => {
+                    if(ing.ingredient.toLowerCase().includes(wordSearched)){
+                        finalSort.add(recipe)
+                    }
+                })
+            }
+        })
+
+        //console.log(finalSort)
+        return(finalSort)
+    }
 }
 

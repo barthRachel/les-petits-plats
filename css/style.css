@@ -42,12 +42,12 @@ main {
     border-radius: 5px 0 0 5px;
 }
 
-.search_all button {
+.search_all button, .input-title i {
     padding: 0 20px;
     border-radius: 0 5px 5px 0;
 }
 
-.search_all button:hover, .tag:hover, .sort:hover {
+.search_all button:hover, .tag:hover, .sort:hover, .sort-specific:hover {
     cursor: pointer;
 }
 
@@ -92,9 +92,60 @@ main {
     margin-right: 20px;
 }
 
-.sort span, .sort i {
+.sort:last-child /*, .sort-specific:last-child*/ {
+    margin-right: 0;
+}
+
+.sort span, .sort i, .input-title i {
     color: white;
     font-size: 18px;
+}
+
+.sort-specific {
+    border: 2px solid red;
+    /*padding: 20px;*/
+    border-radius: 5px;
+    max-width: 670px;
+    width: 100%;
+    margin-right: 20px;
+}
+
+.input-title {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.input-title input {
+    font-size: 18px;
+    /*margin-right: 15px;*/
+    background-color: transparent;
+    width: 100%;
+    padding: 20px;
+    border: none;
+}
+
+.input-title input::placeholder {
+    color: white;
+    opacity: 50%;
+}
+
+.result-container {
+    border: 2px solid green;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    max-height: 400px;
+    overflow-y: scroll;
+    padding: 0 10px;
+}
+
+.result-item {
+    font-size: 18px;
+    color: white;
+    border: 2px solid yellow;
+    margin-bottom: 10px;
 }
 
 /* Filters' background-color */

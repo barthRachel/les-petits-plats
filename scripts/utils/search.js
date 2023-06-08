@@ -1,7 +1,7 @@
-let model = new Model();
-let recipeView = new RecipesView();
+/*let model = new Model();
+let recipeView = new RecipesView();*/
 
-async function searchWithBar(){
+/*async function searchWithBar(){
     if(document.querySelector('.searchbar-input').value.length >= 3) {
         let finalSort = finalSortSet(await getRecipeByTitle(document.querySelector('.searchbar-input').value.toLowerCase()), await getRecipeByDesc(document.querySelector('.searchbar-input').value.toLowerCase()), await getRecipeByIngr(document.querySelector('.searchbar-input').value.toLowerCase()))
         
@@ -14,7 +14,7 @@ async function searchWithBar(){
     }
 
     //console.log(finalSort)
-}
+}*/
 
 //Fonction pour trier et supprimer les recettes doublons dans les différents tri fait
 function finalSortSet(sortByTitle = null, sortByDesc = null, sortByIngr = null, sortByAppliance = null, sortByUstensils = null) {
@@ -49,7 +49,7 @@ function finalSortSet(sortByTitle = null, sortByDesc = null, sortByIngr = null, 
     return(finalSort)
 }
 
-async function getRecipeByTitle(titleNeeded) {
+/*async function getRecipeByTitle(titleNeeded) {
     const allRecipes = await model.getRecipes();
     let recipesByName = new Set();
 
@@ -88,12 +88,12 @@ async function getRecipeByIngr(ingredientNeeded) {
     }
 
     return(recipesByIng)
-}
+}*/
 
 
-let searchbarInput = document.querySelector('.searchbar-input');
+/*let searchbarInput = document.querySelector('.searchbar-input');
 let searchButton = document.querySelector('.search-button');
 
 searchbarInput.addEventListener('keyup', searchWithBar); //event se déclenche quand on tape sur une touche
-searchButton.addEventListener('click', searchWithBar);
+searchButton.addEventListener('click', searchWithBar);*/
 

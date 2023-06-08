@@ -9,7 +9,7 @@ class RecipesView {
             recipeSection.appendChild(recipeCard);
         });
 
-        this.addListenerBonjour() 
+        //this.addListenerBonjour() 
     }
 
     displayNoResults() {
@@ -84,12 +84,40 @@ class RecipesView {
         return(article)
     }
 
-    addListenerBonjour() {
+    displaySpecificFilter(specificList, whichSort) {
+        let DOMElement;
+
+        if(whichSort == "ingredient") {
+            DOMElement = document.querySelector('.ingredients-container');
+        }
+
+        specificList.forEach(element => {
+            const elementSpan = this.getIngredientSpan(element);
+            DOMElement.appendChild(elementSpan)
+        })
+    }
+
+    getIngredientSpan(ingr) {
+        let span = document.createElement('span')
+        span.classList.add('result-item');
+        span.innerText = ingr;
+
+        return(span)
+    }
+
+    /*addListenerBonjour() {
         let btnBonjour = document.querySelector('#btnBonjour')
 
         btnBonjour.addEventListener('click', () => {
             controller.direBonjour();
         })
-    }
+    }*/
 
+    addListenerSearchbar() {
+        let searchbarInput = document.querySelector('.searchbar-input');
+
+        searchbarInput.addEventListener('keyup', () => { //event se déclenche quand on tape sur une touche
+            controller.searchWithBar();
+        })
+    }
 }
