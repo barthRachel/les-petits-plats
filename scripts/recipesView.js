@@ -89,18 +89,22 @@ class RecipesView {
 
         if(whichSort == "ingredient") {
             DOMElement = document.querySelector('.ingredients-container');
+        } else if(whichSort == "appliance") {
+            DOMElement = document.querySelector('.appliance-container');
+        } else if(whichSort == "ustensils") {
+            DOMElement = document.querySelector('.ustensils-container')
         }
 
         specificList.forEach(element => {
-            const elementSpan = this.getIngredientSpan(element);
+            const elementSpan = this.getElementsFilteredSpan(element);
             DOMElement.appendChild(elementSpan)
         })
     }
 
-    getIngredientSpan(ingr) {
+    getElementsFilteredSpan(specificElement) {
         let span = document.createElement('span')
         span.classList.add('result-item');
-        span.innerText = ingr;
+        span.innerText = specificElement;
 
         return(span)
     }
@@ -118,6 +122,33 @@ class RecipesView {
 
         searchbarInput.addEventListener('keyup', () => { //event se déclenche quand on tape sur une touche
             controller.searchWithBar();
+        })
+    }
+
+    addListenerSpecificFilter() {
+        let filters = document.querySelectorAll('.sort');
+
+        console.log(filters)
+
+        filters.forEach(filter => {
+            filter.addEventListener('click', () => {
+                if(filter.classList.contains('sort-ingredients')) {
+                    document.querySelector('.sort-ingredients-specific').classList.remove('hide-sort-specific');
+                    //document.querySelector('.sort-ingredients-specific').classList.add('show-sort-specific');
+
+                    filter.classList.add('hide-sort-specific');
+                } else if(filter.classList.contains('sort-appliance')) {
+                    document.querySelector('.sort-appliance-specific').classList.remove('hide-sort-specific');
+                    //document.querySelector('.sort-ingredients-specific').classList.add('show-sort-specific');
+
+                    filter.classList.add('hide-sort-specific');
+                } else if(filter.classList.contains('sort-ustensils')) {
+                    document.querySelector('.sort-ustensils-specific').classList.remove('hide-sort-specific');
+                    //document.querySelector('.sort-ingredients-specific').classList.add('show-sort-specific');
+
+                    filter.classList.add('hide-sort-specific');
+                }
+            })
         })
     }
 }

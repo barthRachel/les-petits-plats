@@ -17,6 +17,7 @@ class Controller {
         //let recipeView = new RecipesView();
         this.recipeView.displayRecipes(recipes);
         this.recipeView.addListenerSearchbar();
+        this.recipeView.addListenerSpecificFilter();
 
     };
 
@@ -43,6 +44,24 @@ class Controller {
 
         this.recipeView.displaySpecificFilter(listIngredient, 'ingredient')
         console.log(listIngredient)
+    }
+
+    async showAppliance(listAppliance = null) {
+        if(listAppliance == null){
+            listAppliance = await this.model.getAppliance()
+        }
+
+        this.recipeView.displaySpecificFilter(listAppliance, 'appliance')
+        console.log(listAppliance)
+    }
+
+    async showUstensils(listUstensils = null) {
+        if(listUstensils == null){
+            listUstensils = await this.model.getUstensils()
+        }
+
+        this.recipeView.displaySpecificFilter(listUstensils, 'ustensils')
+        console.log(listUstensils)
     }
 
     /*direBonjour() {

@@ -43,12 +43,12 @@
           </div>
 
           <div class="sort-all">
-            <!--<div class="sort sort-ingredients ingredients-bg">
+            <div class="sort sort-ingredients ingredients-bg">
               <span>Ingrédients</span>
               <i class="fa fa-chevron-down" aria-hidden="true"></i>
-            </div>-->
+            </div>
 
-            <div class="ingredients-bg sort-specific sort-ingredients-specific">
+            <div class="hide-sort-specific ingredients-bg sort-specific sort-ingredients-specific">
               <div class="input-title">
                 <input type="search" placeholder="Rechercher un ingrédient"/>
                 <i class="fa fa-chevron-up" aria-hidden="true"></i>
@@ -69,9 +69,29 @@
               <i class="fa fa-chevron-down" aria-hidden="true"></i>
             </div>
 
+            <div class="hide-sort-specific appliance-bg sort-specific sort-appliance-specific">
+              <div class="input-title">
+                <input type="search" placeholder="Rechercher un appareil"/>
+                <i class="fa fa-chevron-up" aria-hidden="true"></i>
+              </div>
+              <div class="result-container appliance-container">
+
+              </div>
+            </div>
+
             <div class="sort sort-ustensils ustensils-bg">
               <span>Ustensiles</span>
               <i class="fa fa-chevron-down" aria-hidden="true"></i>
+            </div>
+
+            <div class="hide-sort-specific ustensils-bg sort-specific sort-ustensils-specific">
+              <div class="input-title">
+                <input type="search" placeholder="Rechercher un ustensile"/>
+                <i class="fa fa-chevron-up" aria-hidden="true"></i>
+              </div>
+              <div class="result-container ustensils-container">
+
+              </div>
             </div>
           </div>
         
@@ -94,6 +114,8 @@
     controller.init();
 
     controller.showIngredients();
+    controller.showAppliance();
+    controller.showUstensils();
   </script>
   <script src="scripts/utils/search.js"></script>
 </html>
