@@ -116,5 +116,38 @@ class Model{
         //console.log(finalSort)
         return(finalSort)
     }
+
+    getIngredientsSorted(wordSearched, allIngredients) {
+        let listOfMatchedIngredients = new Set();
+        allIngredients.forEach(ingredient => {
+            if(ingredient.toLowerCase().includes(wordSearched)){
+                listOfMatchedIngredients.add(ingredient);
+            }
+        })
+
+        return(listOfMatchedIngredients)
+    }
+
+    getApplianceSorted(wordSearched, allAppliance) {
+        let listOfMatchedAppliance = new Set();
+        allAppliance.forEach(appliance => {
+            if(appliance.toLowerCase().includes(wordSearched)){
+                listOfMatchedAppliance.add(appliance);
+            }
+        })
+
+        return(listOfMatchedAppliance)
+    }
+
+    getUstensilsSrted(wordSearched, allUstensils) {
+        let listOfMatchedUstensils = new Set();
+        allUstensils.forEach(ustensil => {
+            if(ustensil.toLowerCase().includes(wordSearched)){
+                listOfMatchedUstensils.add(ustensil);
+            }
+        })
+
+        return(listOfMatchedUstensils)
+    }
 }
 

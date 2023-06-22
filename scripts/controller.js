@@ -18,6 +18,9 @@ class Controller {
         this.recipeView.displayRecipes(recipes);
         this.recipeView.addListenerSearchbar();
         this.recipeView.addListenerSpecificFilter();
+        this.recipeView.addListenerSearchbarIngredients();
+        this.recipeView.addListenerSearchbarAppliance();
+        this.recipeView.addListenerSearchbarUstensils();
 
     };
 
@@ -31,10 +34,44 @@ class Controller {
                 this.recipeView.displayNoResults()
             }
         } else {
-            this.recipeView.displayRecipes(await this.model.getRecipes())
+            this.recipeView.displayRecipes(await this.model.getRecipes());
         }
     
         //console.log(finalSort)
+    }
+
+    async searchWithIngredientBar() {
+        //console.log('ok')
+
+        if(document.querySelector('.searchbar-ingredients').value.length >= 1) {
+            //console.log("oe")
+            let listOfMatchedIngredients = this.model.getIngredientsSorted(document.querySelector('.searchbar-ingredients').value.toLowerCase(), await this.model.getIngredients());
+            console.log(listOfMatchedIngredients)
+            this.recipeView.displaySpecificFilter(listOfMatchedIngredients, "ingredient")
+        } else {
+            this.recipeView.displaySpecificFilter(await this.model.getIngredients(), 'ingredient');
+            //console.log("nan")
+        }
+    }
+
+    async searchWithApplianceBar() {
+        if(document.querySelector('.searchbar-appliance').value.length >= 1) {
+            let listOfMatchedAppliance = this.model.getApplianceSorted(document.querySelector('.searchbar-appliance').value.toLowerCase(), await this.model.getAppliance());
+            console.log(listOfMatchedAppliance)
+            this.recipeView.displaySpecificFilter(listOfMatchedAppliance, "appliance")
+        } else {
+            this.recipeView.displaySpecificFilter(await this.model.getAppliance(), 'appliance');
+        }
+    }
+
+    async searchWithUstensilsBar() {
+        if(document.querySelector('.searchbar-ustensils').value.length >= 1) {
+            let listOfMatchedUstensils = this.model.getIngredientsSorted(document.querySelector('.searchbar-ustensils').value.toLowerCase(), await this.model.getUstensils());
+            console.log(listOfMatchedUstensils)
+            this.recipeView.displaySpecificFilter(listOfMatchedUstensils, "ustensils")
+        } else {
+            this.recipeView.displaySpecificFilter(await this.model.getUstensils(), 'ustensils');
+        }
     }
 
     async showIngredients(listIngredient = null) {

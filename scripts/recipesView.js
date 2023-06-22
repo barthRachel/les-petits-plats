@@ -95,6 +95,7 @@ class RecipesView {
             DOMElement = document.querySelector('.ustensils-container')
         }
 
+        DOMElement.innerHTML = "";
         specificList.forEach(element => {
             const elementSpan = this.getElementsFilteredSpan(element);
             DOMElement.appendChild(elementSpan)
@@ -125,30 +126,91 @@ class RecipesView {
         })
     }
 
+    addListenerSearchbarIngredients() {
+        let searchbarIngredientsInput = document.querySelector('.searchbar-ingredients');
+
+        searchbarIngredientsInput.addEventListener('keyup', () => {
+            controller.searchWithIngredientBar();
+        })
+    }
+
+    addListenerSearchbarAppliance() {
+        let searchbarApplianceInput = document.querySelector('.searchbar-appliance');
+
+        searchbarApplianceInput.addEventListener('keyup', () => {
+            controller.searchWithApplianceBar();
+        })
+    }
+
+    addListenerSearchbarUstensils() {
+        let searchbarUstensilsInput = document.querySelector('.searchbar-ustensils');
+
+        searchbarUstensilsInput.addEventListener('keyup', () => {
+            controller.searchWithUstensilsBar();
+        })
+    }
+
+    toHide(firstElement, secondElement) {
+        firstElement.classList.add('hide-sort-specific');
+        secondElement.classList.add('hide-sort-specific');
+    }
+
+    toShow(firstElement, secondElement) {
+        firstElement.classList.remove('hide-sort-specific');
+        secondElement.classList.remove('hide-sort-specific');
+    }
+
     addListenerSpecificFilter() {
         let filters = document.querySelectorAll('.sort');
+        let sortSpecific = document.querySelectorAll('.sort-specific');
+        let toCloseButtons = document.querySelectorAll('.toClose');
 
-        console.log(filters)
+        console.log(toCloseButtons)
 
         filters.forEach(filter => {
             filter.addEventListener('click', () => {
                 if(filter.classList.contains('sort-ingredients')) {
+                    this.toHide(sortSpecific[1], sortSpecific[2]);
+                    this.toShow(filters[1], filters[2]);
+
                     document.querySelector('.sort-ingredients-specific').classList.remove('hide-sort-specific');
-                    //document.querySelector('.sort-ingredients-specific').classList.add('show-sort-specific');
 
                     filter.classList.add('hide-sort-specific');
                 } else if(filter.classList.contains('sort-appliance')) {
+                    this.toHide(sortSpecific[0], sortSpecific[2]);
+                    this.toShow(filters[0], filters[2]);
+
                     document.querySelector('.sort-appliance-specific').classList.remove('hide-sort-specific');
-                    //document.querySelector('.sort-ingredients-specific').classList.add('show-sort-specific');
 
                     filter.classList.add('hide-sort-specific');
                 } else if(filter.classList.contains('sort-ustensils')) {
+                    this.toHide(sortSpecific[0], sortSpecific[1]);
+                    this.toShow(filters[0], filters[1]);
+
                     document.querySelector('.sort-ustensils-specific').classList.remove('hide-sort-specific');
-                    //document.querySelector('.sort-ingredients-specific').classList.add('show-sort-specific');
 
                     filter.classList.add('hide-sort-specific');
                 }
             })
         })
+
+        toCloseButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                console.log(e.target.parentNode.parentNode)
+                if(button.parentNode.parentNode.classList.contains('sort-ingredients-specific')) {
+                    button.parentNode.parentNode.classList.add('hide-sort-specific');
+                    document.querySelector('.sort-ingredients').classList.remove('hide-sort-specific');
+                } else if(button.parentNode.parentNode.classList.contains('sort-appliance-specific')) {
+                    button.parentNode.parentNode.classList.add('hide-sort-specific');
+                    document.querySelector('.sort-appliance').classList.remove('hide-sort-specific');
+                } else if(button.parentNode.parentNode.classList.contains('sort-ustensils-specific')) {
+                    button.parentNode.parentNode.classList.add('hide-sort-specific');
+                    document.querySelector('.sort-ustensils').classList.remove('hide-sort-specific');
+                }
+            })
+        })
+
+
     }
+
 }

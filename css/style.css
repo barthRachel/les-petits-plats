@@ -101,6 +101,11 @@ main {
     font-size: 18px;
 }
 
+.input-title i {
+    padding: 20px;
+    border: 2px solid red;
+}
+
 .sort-specific {
     border: 2px solid red;
     /*padding: 20px;*/
