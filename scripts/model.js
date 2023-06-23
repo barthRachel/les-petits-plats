@@ -21,7 +21,7 @@ class Model{
         let allIngredient = new Set();
         for (const recipe of listRecipe) {
             for (const ingredient of recipe.ingredients) {
-                allIngredient.add(ingredient.ingredient)
+                allIngredient.add(ingredient.ingredient.charAt(0).toUpperCase() + ingredient.ingredient.slice(1))
             }
         }
         return(allIngredient);
@@ -34,7 +34,7 @@ class Model{
         let allUstensil = new Set();
         for (const recipe of listRecipe) {
             for (const ustensil of recipe.ustensils) {
-                allUstensil.add(ustensil);
+                allUstensil.add(ustensil.charAt(0).toUpperCase() + ustensil.slice(1));
             }
         }
         return(allUstensil)
@@ -46,7 +46,7 @@ class Model{
         }
         let allAppliance = new Set();
         for (const appliance of listRecipe) {
-            allAppliance.add(appliance.appliance)
+            allAppliance.add(appliance.appliance.charAt(0).toUpperCase() + appliance.appliance.slice(1))
         }
         return(allAppliance)
     }
@@ -94,10 +94,8 @@ class Model{
 
     getBrowseList(wordSearched, allRecipes) {
         //const allRecipes = await this.getRecipes();
-
         console.log(allRecipes)
         //console.log(wordSearched)
-
         let finalSort = new Set();
         allRecipes.forEach(recipe => {
             if(recipe.name.toLowerCase().includes(wordSearched)){
@@ -112,20 +110,70 @@ class Model{
                 })
             }
         })
-
         //console.log(finalSort)
         return(finalSort)
     }
 
-    getIngredientsSorted(wordSearched, allIngredients) {
-        let listOfMatchedIngredients = new Set();
-        allIngredients.forEach(ingredient => {
-            if(ingredient.toLowerCase().includes(wordSearched)){
-                listOfMatchedIngredients.add(ingredient);
-            }
-        })
+    getBrowseListForSpecificSort(whichbar, wordSearched, allRecipes) {
+        let finalSortIngredient = new Set();
+        let finalSortAppliance = new Set();
+        let finalSortUstensils = new Set();
+        let allRecipesNeeded = new Set();
 
-        return(listOfMatchedIngredients)
+        if(whichbar == "ingredient"){
+            allRecipes.forEach(recipe => {
+                recipe.ingredients.forEach(ingredient => {
+                    if(ingredient.ingredient.includes(wordSearched)){
+                        finalSortIngredient.add(ingredient.ingredient)
+                        finalSortAppliance.add(recipe.appliance)
+                        recipe.ustensils.forEach(ustensil => {
+                            finalSortUstensils.add(ustensil)
+                        })
+                        allRecipesNeeded.add(recipe)
+
+                    }
+                })
+            })
+        } else if(whichbar == "appliance") {
+            allRecipes.forEach(recipe => {
+                if(recipe.appliance.includes(wordSearched)){
+                    finalSortAppliance.add(recipe.appliance)
+                    recipe.ingredient.forEach(ingredient => {
+                        finalSortIngredient.add(ingredient.ingredient)
+                    })
+                    recipe.ustensils.forEach(ustensil => {
+                        finalSortUstensils.add(ustensil)
+                    })
+                    allRecipesNeeded.add(recipe)
+                }
+            })
+        }
+
+
+        console.log("=================")
+        console.log(finalSortIngredient)
+        console.log("=================")
+        console.log(finalSortAppliance)
+        console.log("=================")
+        console.log(finalSortUstensils)
+        console.log("=================")
+        console.log(allRecipesNeeded)
+        //return("Oui")*/
+
+        return({finalSortIngredient, finalSortAppliance, finalSortUstensils, allRecipesNeeded})
+    }
+
+    getIngredientsSorted(wordSearched, allRecipes) { //donne la liste des recettes dont les ingred correspond à la recherche
+        let listOfMatchedIngredientsRecipes = new Set();
+        allRecipes.forEach(recipe => {
+            recipe.ingredients.forEach(ingredient => {
+                if(ingredient.ingredient.toLowerCase().includes(wordSearched)){
+                    listOfMatchedIngredientsRecipes.add(recipe);
+                }
+            })
+        })
+        console.log(listOfMatchedIngredientsRecipes)
+        return(listOfMatchedIngredientsRecipes)
     }
 
     getApplianceSorted(wordSearched, allAppliance) {

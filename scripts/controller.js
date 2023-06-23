@@ -18,6 +18,11 @@ class Controller {
         this.recipeView.displayRecipes(recipes);
         this.recipeView.addListenerSearchbar();
         this.recipeView.addListenerSpecificFilter();
+
+        this.showIngredients();
+        this.showAppliance();
+        this.showUstensils();
+        
         this.recipeView.addListenerSearchbarIngredients();
         this.recipeView.addListenerSearchbarAppliance();
         this.recipeView.addListenerSearchbarUstensils();
@@ -40,14 +45,21 @@ class Controller {
         //console.log(finalSort)
     }
 
+    async searchWithSpecificBar() {
+        
+    }
+
     async searchWithIngredientBar() {
         //console.log('ok')
 
-        if(document.querySelector('.searchbar-ingredients').value.length >= 1) {
-            //console.log("oe")
-            let listOfMatchedIngredients = this.model.getIngredientsSorted(document.querySelector('.searchbar-ingredients').value.toLowerCase(), await this.model.getIngredients());
-            console.log(listOfMatchedIngredients)
-            this.recipeView.displaySpecificFilter(listOfMatchedIngredients, "ingredient")
+        if(document.querySelector('.searchbar-ingredients').value.length >= 2) {
+            let listOfRecipesWhichMatch = this.model.getBrowseListForSpecificSort("ingredient", document.querySelector('.searchbar-ingredients').value.toLowerCase(), await this.model.getRecipes())
+            console.log(listOfRecipesWhichMatch.finalSortIngredient)
+
+            this.recipeView.displaySpecificFilter(listOfRecipesWhichMatch.finalSortIngredient, "ingredient");
+
+            this.recipeView.displaySpecificFilter(listOfRecipesWhichMatch.finalSortAppliance, "appliance");
+            this.recipeView.displaySpecificFilter(listOfRecipesWhichMatch.finalSortUstensils, "ustensils");
         } else {
             this.recipeView.displaySpecificFilter(await this.model.getIngredients(), 'ingredient');
             //console.log("nan")
@@ -56,9 +68,13 @@ class Controller {
 
     async searchWithApplianceBar() {
         if(document.querySelector('.searchbar-appliance').value.length >= 1) {
-            let listOfMatchedAppliance = this.model.getApplianceSorted(document.querySelector('.searchbar-appliance').value.toLowerCase(), await this.model.getAppliance());
-            console.log(listOfMatchedAppliance)
-            this.recipeView.displaySpecificFilter(listOfMatchedAppliance, "appliance")
+            let listOfRecipesWhichMatch = this.model.getBrowseListForSpecificSort("appliance", document.querySelector('.searchbar-appliance').value.toLowerCase(), await this.model.getRecipes())
+            console.log(listOfRecipesWhichMatch.finalSortAppliance)
+            
+            this.recipeView.displaySpecificFilter(listOfRecipesWhichMatch.finalSortAppliance, "appliance")
+
+            this.recipeView.displaySpecificFilter(listOfRecipesWhichMatch.finalSortIngredient, "ingredient")
+            this.recipeView.displaySpecificFilter(listOfRecipesWhichMatch.finalSortUstensils, "ustensils");
         } else {
             this.recipeView.displaySpecificFilter(await this.model.getAppliance(), 'appliance');
         }

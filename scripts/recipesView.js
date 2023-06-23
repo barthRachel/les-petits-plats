@@ -97,7 +97,10 @@ class RecipesView {
 
         DOMElement.innerHTML = "";
         specificList.forEach(element => {
-            const elementSpan = this.getElementsFilteredSpan(element);
+            //console.log(element.charAt(0).toUpperCase() + element.slice(1))
+            const elementSpan = this.getElementsFilteredSpan(element.charAt(0).toUpperCase() + element.slice(1));
+            //const elementSpan = this.getElementsFilteredSpan(element)
+
             DOMElement.appendChild(elementSpan)
         })
     }
