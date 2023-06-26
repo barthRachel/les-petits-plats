@@ -45,8 +45,20 @@ class Controller {
         //console.log(finalSort)
     }
 
-    async searchWithSpecificBar() {
-        
+    resetOthersSpecificBar(searchbar1, searchbar2) {
+        let bar1 = document.querySelector(searchbar1);
+        let bar2 = document.querySelector(searchbar2);
+
+        if(bar1.value !== ""){
+            bar1.value = "";
+        }
+
+        if(bar2.value !== ""){
+            bar2.value = "";
+        }
+
+        //console.log(bar1)
+        //console.log(bar2)
     }
 
     async searchWithIngredientBar() {

@@ -133,6 +133,7 @@ class RecipesView {
         let searchbarIngredientsInput = document.querySelector('.searchbar-ingredients');
 
         searchbarIngredientsInput.addEventListener('keyup', () => {
+            controller.resetOthersSpecificBar(".searchbar-appliance", ".searchbar-ustensils");
             controller.searchWithIngredientBar();
         })
     }
@@ -141,6 +142,7 @@ class RecipesView {
         let searchbarApplianceInput = document.querySelector('.searchbar-appliance');
 
         searchbarApplianceInput.addEventListener('keyup', () => {
+            controller.resetOthersSpecificBar(".searchbar-ingredients", ".searchbar-ustensils");
             controller.searchWithApplianceBar();
         })
     }
@@ -149,6 +151,7 @@ class RecipesView {
         let searchbarUstensilsInput = document.querySelector('.searchbar-ustensils');
 
         searchbarUstensilsInput.addEventListener('keyup', () => {
+            controller.resetOthersSpecificBar(".searchbar-appliance", ".searchbar-ingredients");
             controller.searchWithUstensilsBar();
         })
     }
