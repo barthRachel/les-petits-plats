@@ -67,7 +67,7 @@ class Controller {
     }
 
     async searchWithApplianceBar() {
-        if(document.querySelector('.searchbar-appliance').value.length >= 1) {
+        if(document.querySelector('.searchbar-appliance').value.length >= 2) {
             let listOfRecipesWhichMatch = this.model.getBrowseListForSpecificSort("appliance", document.querySelector('.searchbar-appliance').value.toLowerCase(), await this.model.getRecipes())
             console.log(listOfRecipesWhichMatch.finalSortAppliance)
             
@@ -81,10 +81,14 @@ class Controller {
     }
 
     async searchWithUstensilsBar() {
-        if(document.querySelector('.searchbar-ustensils').value.length >= 1) {
-            let listOfMatchedUstensils = this.model.getIngredientsSorted(document.querySelector('.searchbar-ustensils').value.toLowerCase(), await this.model.getUstensils());
-            console.log(listOfMatchedUstensils)
-            this.recipeView.displaySpecificFilter(listOfMatchedUstensils, "ustensils")
+        if(document.querySelector('.searchbar-ustensils').value.length >= 2) {
+            let listOfRecipesWhichMatch = this.model.getBrowseListForSpecificSort("ustensils", document.querySelector('.searchbar-ustensils').value.toLowerCase(), await this.model.getRecipes());
+            console.log(listOfRecipesWhichMatch)
+
+            this.recipeView.displaySpecificFilter(listOfRecipesWhichMatch.finalSortUstensils, "ustensils");
+
+            this.recipeView.displaySpecificFilter(listOfRecipesWhichMatch.finalSortAppliance, "appliance");
+            this.recipeView.displaySpecificFilter(listOfRecipesWhichMatch.finalSortIngredient, "ingredient");        
         } else {
             this.recipeView.displaySpecificFilter(await this.model.getUstensils(), 'ustensils');
         }

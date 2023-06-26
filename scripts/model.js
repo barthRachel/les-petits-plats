@@ -123,7 +123,7 @@ class Model{
         if(whichbar == "ingredient"){
             allRecipes.forEach(recipe => {
                 recipe.ingredients.forEach(ingredient => {
-                    if(ingredient.ingredient.includes(wordSearched)){
+                    if(ingredient.ingredient.toLowerCase().includes(wordSearched)){
                         finalSortIngredient.add(ingredient.ingredient)
                         finalSortAppliance.add(recipe.appliance)
                         recipe.ustensils.forEach(ustensil => {
@@ -136,21 +136,35 @@ class Model{
             })
         } else if(whichbar == "appliance") {
             allRecipes.forEach(recipe => {
-                if(recipe.appliance.includes(wordSearched)){
+                if(recipe.appliance.toLowerCase().includes(wordSearched)){
                     finalSortAppliance.add(recipe.appliance)
-                    recipe.ingredient.forEach(ingredient => {
+                    recipe.ingredients.forEach(ingredient => {
                         finalSortIngredient.add(ingredient.ingredient)
                     })
+                    //console.log(recipe.ingredients)
                     recipe.ustensils.forEach(ustensil => {
                         finalSortUstensils.add(ustensil)
                     })
                     allRecipesNeeded.add(recipe)
                 }
             })
+        } else if(whichbar == "ustensils") {
+            allRecipes.forEach(recipe => {
+                recipe.ustensils.forEach(ustensil => {
+                    if(ustensil.toLowerCase().includes(wordSearched)){
+                        finalSortUstensils.add(ustensil);
+                        recipe.ingredients.forEach(ingredient => {
+                            finalSortIngredient.add(ingredient.ingredient);
+                        })
+                        finalSortAppliance.add(recipe.appliance)
+                        allRecipesNeeded.add(recipe)
+                    }
+                })
+            })
         }
 
 
-        console.log("=================")
+        /*console.log("=================")
         console.log(finalSortIngredient)
         console.log("=================")
         console.log(finalSortAppliance)
