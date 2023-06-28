@@ -160,6 +160,12 @@ main {
     border-radius: 0 0 5px 5px;
 }
 
+@media (max-width:980px) {
+    .result-container{
+        max-width: 353px;
+    } 
+}
+
 .result-item {
     font-size: 18px;
     color: white;
