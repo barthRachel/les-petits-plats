@@ -120,51 +120,62 @@ class Model{
         let finalSortUstensils = new Set();
         let allRecipesNeeded = new Set();
 
-        if(whichbar == "ingredient"){
-            allRecipes.forEach(recipe => {
-                recipe.ingredients.forEach(ingredient => {
-                    if(ingredient.ingredient.toLowerCase().includes(wordSearched)){
-                        finalSortIngredient.add(ingredient.ingredient)
+        if(wordSearched !== ""){
+            if(whichbar == "ingredient"){
+                allRecipes.forEach(recipe => {
+                    recipe.ingredients.forEach(ingredient => {
+                        if(ingredient.ingredient.toLowerCase().includes(wordSearched)){
+                            finalSortIngredient.add(ingredient.ingredient)
+                            finalSortAppliance.add(recipe.appliance)
+                            recipe.ustensils.forEach(ustensil => {
+                                finalSortUstensils.add(ustensil)
+                            })
+                            allRecipesNeeded.add(recipe)
+    
+                        }
+                    })
+                })
+            } else if(whichbar == "appliance") {
+                allRecipes.forEach(recipe => {
+                    if(recipe.appliance.toLowerCase().includes(wordSearched)){
                         finalSortAppliance.add(recipe.appliance)
+                        recipe.ingredients.forEach(ingredient => {
+                            finalSortIngredient.add(ingredient.ingredient)
+                        })
+                        //console.log(recipe.ingredients)
                         recipe.ustensils.forEach(ustensil => {
                             finalSortUstensils.add(ustensil)
                         })
                         allRecipesNeeded.add(recipe)
-
                     }
                 })
-            })
-        } else if(whichbar == "appliance") {
-            allRecipes.forEach(recipe => {
-                if(recipe.appliance.toLowerCase().includes(wordSearched)){
-                    finalSortAppliance.add(recipe.appliance)
-                    recipe.ingredients.forEach(ingredient => {
-                        finalSortIngredient.add(ingredient.ingredient)
-                    })
-                    //console.log(recipe.ingredients)
+            } else if(whichbar == "ustensils") {
+                allRecipes.forEach(recipe => {
                     recipe.ustensils.forEach(ustensil => {
-                        finalSortUstensils.add(ustensil)
+                        if(ustensil.toLowerCase().includes(wordSearched)){
+                            finalSortUstensils.add(ustensil);
+                            recipe.ingredients.forEach(ingredient => {
+                                finalSortIngredient.add(ingredient.ingredient);
+                            })
+                            finalSortAppliance.add(recipe.appliance)
+                            allRecipesNeeded.add(recipe)
+                        }
                     })
-                    allRecipesNeeded.add(recipe)
-                }
-            })
-        } else if(whichbar == "ustensils") {
+                })
+            }
+        } else {
             allRecipes.forEach(recipe => {
+                recipe.ingredients.forEach(ingredient => {
+                    finalSortIngredient.add(ingredient.ingredient);
+                })
+                finalSortAppliance.add(recipe.appliance);
                 recipe.ustensils.forEach(ustensil => {
-                    if(ustensil.toLowerCase().includes(wordSearched)){
-                        finalSortUstensils.add(ustensil);
-                        recipe.ingredients.forEach(ingredient => {
-                            finalSortIngredient.add(ingredient.ingredient);
-                        })
-                        finalSortAppliance.add(recipe.appliance)
-                        allRecipesNeeded.add(recipe)
-                    }
+                    finalSortUstensils.add(ustensil);
                 })
             })
         }
-
-
-        /*console.log("=================")
+        
+        console.log("=================")
         console.log(finalSortIngredient)
         console.log("=================")
         console.log(finalSortAppliance)

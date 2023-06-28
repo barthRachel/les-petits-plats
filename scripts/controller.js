@@ -73,7 +73,12 @@ class Controller {
             this.recipeView.displaySpecificFilter(listOfRecipesWhichMatch.finalSortAppliance, "appliance");
             this.recipeView.displaySpecificFilter(listOfRecipesWhichMatch.finalSortUstensils, "ustensils");
         } else {
-            this.recipeView.displaySpecificFilter(await this.model.getIngredients(), 'ingredient');
+            let noWord = this.model.getBrowseListForSpecificSort("ingredient", "", await this.model.getRecipes())
+
+            this.recipeView.displaySpecificFilter(noWord.finalSortIngredient, 'ingredient');
+
+            this.recipeView.displaySpecificFilter(noWord.finalSortAppliance, 'appliance');
+            this.recipeView.displaySpecificFilter(noWord.finalSortUstensils, 'ustensils');
             //console.log("nan")
         }
     }
@@ -88,7 +93,12 @@ class Controller {
             this.recipeView.displaySpecificFilter(listOfRecipesWhichMatch.finalSortIngredient, "ingredient")
             this.recipeView.displaySpecificFilter(listOfRecipesWhichMatch.finalSortUstensils, "ustensils");
         } else {
-            this.recipeView.displaySpecificFilter(await this.model.getAppliance(), 'appliance');
+            let noWord = this.model.getBrowseListForSpecificSort("appliance", "", await this.model.getRecipes())
+            
+            this.recipeView.displaySpecificFilter(noWord.finalSortAppliance, 'appliance');
+
+            this.recipeView.displaySpecificFilter(noWord.finalSortIngredient, 'ingredient');
+            this.recipeView.displaySpecificFilter(noWord.finalSortUstensils, 'ustensils');
         }
     }
 
@@ -102,7 +112,12 @@ class Controller {
             this.recipeView.displaySpecificFilter(listOfRecipesWhichMatch.finalSortAppliance, "appliance");
             this.recipeView.displaySpecificFilter(listOfRecipesWhichMatch.finalSortIngredient, "ingredient");        
         } else {
-            this.recipeView.displaySpecificFilter(await this.model.getUstensils(), 'ustensils');
+            let noWord = this.model.getBrowseListForSpecificSort("ustensils", "", await this.model.getRecipes())
+
+            this.recipeView.displaySpecificFilter(noWord.finalSortUstensils, 'ustensils');
+
+            this.recipeView.displaySpecificFilter(noWord.finalSortAppliance, 'appliance');
+            this.recipeView.displaySpecificFilter(noWord.finalSortIngredient, 'ingredient');
         }
     }
 
