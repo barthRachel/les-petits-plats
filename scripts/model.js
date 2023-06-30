@@ -92,11 +92,13 @@ class Model{
         return(recipesByIng)
     }*/
 
+    /* fonction pour donner les recettes qui correspondent à la chaîne de caractères
+    taper dans la grande barre de recherche*/
     getBrowseList(wordSearched, allRecipes) {
         //const allRecipes = await this.getRecipes();
         console.log(allRecipes)
         //console.log(wordSearched)
-        let finalSort = new Set();
+        let finalSort = new Set(); //liste des recette qui matchent
         allRecipes.forEach(recipe => {
             if(recipe.name.toLowerCase().includes(wordSearched)){
                 finalSort.add(recipe)
@@ -114,13 +116,26 @@ class Model{
         return(finalSort)
     }
 
+    /* fonction pour donner les listes d'ingrédients, appareils, ustensiles et recettes qui correspondent à
+    la chaîne de caractère tapés dans les barres de recherche des filtres avancés */
     getBrowseListForSpecificSort(whichbar, wordSearched, allRecipes) {
         let finalSortIngredient = new Set();
         let finalSortAppliance = new Set();
         let finalSortUstensils = new Set();
         let allRecipesNeeded = new Set();
 
-        if(wordSearched !== ""){
+        if(wordSearched == "") {
+            allRecipes.forEach(recipe => {
+                recipe.ingredients.forEach(ingredient => {
+                    finalSortIngredient.add(ingredient.ingredient);
+                })
+                finalSortAppliance.add(recipe.appliance);
+                recipe.ustensils.forEach(ustensil => {
+                    finalSortUstensils.add(ustensil);
+                })
+                allRecipesNeeded.add(recipe)
+            })
+        }else if(wordSearched !== ""){ // si la chaîne de caractère n'est pas vide
             if(whichbar == "ingredient"){
                 allRecipes.forEach(recipe => {
                     recipe.ingredients.forEach(ingredient => {
@@ -163,16 +178,6 @@ class Model{
                     })
                 })
             }
-        } else {
-            allRecipes.forEach(recipe => {
-                recipe.ingredients.forEach(ingredient => {
-                    finalSortIngredient.add(ingredient.ingredient);
-                })
-                finalSortAppliance.add(recipe.appliance);
-                recipe.ustensils.forEach(ustensil => {
-                    finalSortUstensils.add(ustensil);
-                })
-            })
         }
         
         console.log("=================")
@@ -183,12 +188,11 @@ class Model{
         console.log(finalSortUstensils)
         console.log("=================")
         console.log(allRecipesNeeded)
-        //return("Oui")*/
 
         return({finalSortIngredient, finalSortAppliance, finalSortUstensils, allRecipesNeeded})
     }
 
-    getIngredientsSorted(wordSearched, allRecipes) { //donne la liste des recettes dont les ingred correspond à la recherche
+    /*getIngredientsSorted(wordSearched, allRecipes) { //donne la liste des recettes dont les ingred correspond à la recherche
         let listOfMatchedIngredientsRecipes = new Set();
         allRecipes.forEach(recipe => {
             recipe.ingredients.forEach(ingredient => {
@@ -221,6 +225,6 @@ class Model{
         })
 
         return(listOfMatchedUstensils)
-    }
+    }*/
 }
 

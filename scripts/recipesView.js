@@ -124,6 +124,30 @@ class RecipesView {
     addListenerSearchbar() {
         let searchbarInput = document.querySelector('.searchbar-input');
 
+        searchbarInput.addEventListener('click', () => {
+            let allSortBloc = document.querySelectorAll('.sort');
+            let allSortElementsBloc = document.querySelectorAll('.sort-specific');
+
+            let allSearchbars = document.querySelectorAll('.searchbars');
+
+            allSortBloc.forEach(sortBloc => {
+                sortBloc.classList.remove('hide-sort-specific');
+            })
+            allSortElementsBloc.forEach(sortSpecific => {
+                sortSpecific.classList.add('hide-sort-specific');
+            })
+
+            allSearchbars.forEach(searchbar => {
+                if(searchbar.value != ""){
+                    searchbar.value = "";
+                }
+            })
+
+            controller.searchWithIngredientBar();
+            controller.searchWithApplianceBar();
+            controller.searchWithUstensilsBar();
+        })
+
         searchbarInput.addEventListener('keyup', () => { //event se déclenche quand on tape sur une touche
             controller.searchWithBar();
         })
@@ -156,11 +180,13 @@ class RecipesView {
         })
     }
 
+    // fonction pour cacher les 2 filtres avancés passer en paramètre
     toHide(firstElement, secondElement) {
         firstElement.classList.add('hide-sort-specific');
         secondElement.classList.add('hide-sort-specific');
     }
 
+    // fonction pour montrer les 2 filtres avancés passer en paramètre
     toShow(firstElement, secondElement) {
         firstElement.classList.remove('hide-sort-specific');
         secondElement.classList.remove('hide-sort-specific');
@@ -182,6 +208,8 @@ class RecipesView {
                     document.querySelector('.sort-ingredients-specific').classList.remove('hide-sort-specific');
 
                     filter.classList.add('hide-sort-specific');
+
+                    //this.addListenerTagElements();
                 } else if(filter.classList.contains('sort-appliance')) {
                     this.toHide(sortSpecific[0], sortSpecific[2]);
                     this.toShow(filters[0], filters[2]);
@@ -189,6 +217,8 @@ class RecipesView {
                     document.querySelector('.sort-appliance-specific').classList.remove('hide-sort-specific');
 
                     filter.classList.add('hide-sort-specific');
+
+                    //this.addListenerTagElements();
                 } else if(filter.classList.contains('sort-ustensils')) {
                     this.toHide(sortSpecific[0], sortSpecific[1]);
                     this.toShow(filters[0], filters[1]);
@@ -196,7 +226,10 @@ class RecipesView {
                     document.querySelector('.sort-ustensils-specific').classList.remove('hide-sort-specific');
 
                     filter.classList.add('hide-sort-specific');
+
+                    //this.addListenerTagElements();
                 }
+                this.addListenerTagElements();
             })
         })
 
@@ -215,8 +248,55 @@ class RecipesView {
                 }
             })
         })
+    }
 
+    createTag(elementText, colorBackground) {
+        let div = document.createElement('div');
+        let span = document.createElement('span');
+        let i = document.createElement('i');
 
+        div.classList.add('tag');
+        div.classList.add(colorBackground);
+
+        span.innerText = elementText;
+
+        i.classList.add('fa');
+        i.classList.add('fa-times-circle-o');
+
+        div.appendChild(span);
+        div.appendChild(i);
+
+        return(div)
+    }
+
+    addListenerTagElements() {
+        let futureTagElements = document.querySelectorAll('.result-item');
+        let tagBloc = document.querySelector('.taglist');
+        //console.log(tagElements)
+
+        futureTagElements.forEach(futureTag => {
+            futureTag.addEventListener('click', () => {
+                let allTags = document.querySelectorAll('.tag');
+                
+                if(allTags.length == 0){
+                    tagBloc.appendChild(this.createTag(futureTag.innerText, "ingredients-bg"));
+                } else {
+                    allTags.forEach(tag => {
+                        console.log(tag.innerText)
+                        console.log(futureTag.innerText)
+                        if(tag.innerText != futureTag.innerText){
+                            tagBloc.appendChild(this.createTag(futureTag.innerText, "ingredients-bg"));
+                        }
+                        /*if(tag.innerText != futureTag.innerText){
+                            tagBloc.appendChild(this.createTag(futureTag.innerText, "ingredients-bg"));
+                        }*/
+                    })
+                }
+                          
+                console.log(document.querySelectorAll('.tag'))
+                
+            })
+        })
     }
 
 }
