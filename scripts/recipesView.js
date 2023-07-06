@@ -272,20 +272,31 @@ class RecipesView {
     addListenerTagElements() {
         let futureTagElements = document.querySelectorAll('.result-item');
         let tagBloc = document.querySelector('.taglist');
+        let color;
         //console.log(tagElements)
 
         futureTagElements.forEach(futureTag => {
-            futureTag.addEventListener('click', () => {
+            futureTag.addEventListener('click', (e) => {
                 let allTags = document.querySelectorAll('.tag');
-                
+
+                console.log(e.target.parentNode)
+
+                if(e.target.parentNode.classList.contains("ingredients-bg")) {
+                    color = "ingredients-bg";
+                } else if(e.target.parentNode.classList.contains("appliance-bg")) {
+                    color = "appliance-bg"
+                } else {
+                    color = "ustensils-bg"
+                }
+
                 if(allTags.length == 0){
-                    tagBloc.appendChild(this.createTag(futureTag.innerText, "ingredients-bg"));
+                    tagBloc.appendChild(this.createTag(futureTag.innerText, color));
                 } else {
                     allTags.forEach(tag => {
                         console.log(tag.innerText)
                         console.log(futureTag.innerText)
                         if(tag.innerText != futureTag.innerText){
-                            tagBloc.appendChild(this.createTag(futureTag.innerText, "ingredients-bg"));
+                            tagBloc.appendChild(this.createTag(futureTag.innerText, color));
                         }
                         /*if(tag.innerText != futureTag.innerText){
                             tagBloc.appendChild(this.createTag(futureTag.innerText, "ingredients-bg"));
