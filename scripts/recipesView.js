@@ -1,5 +1,10 @@
 //affichage liée aux recettes
 class RecipesView {
+
+    constructor() {
+        this.listIngredientSelected = new Set();
+    }
+
     async displayRecipes(recipes) {
         document.querySelector('.no-results_section').innerHTML = "";
         const recipeSection = document.querySelector('.recipe_section');
@@ -86,7 +91,9 @@ class RecipesView {
 
     displaySpecificFilter(specificList, whichSort) {
         let DOMElement;
+        /*let classToSearch = `.${whichSort}-container`
 
+        DOMElement = document.querySelector(classToSearch)*/
         if(whichSort == "ingredient") {
             DOMElement = document.querySelector('.ingredients-container');
         } else if(whichSort == "appliance") {
@@ -101,8 +108,45 @@ class RecipesView {
             const elementSpan = this.getElementsFilteredSpan(element.charAt(0).toUpperCase() + element.slice(1));
             //const elementSpan = this.getElementsFilteredSpan(element)
 
+            elementSpan.addEventListener('click', (event) => {
+                if(whichSort == "ingredient") {
+                    this.listIngredientSelected.add(event.target.innerText)
+                } else if(whichSort == "appliance") {
+                    //DOMElement = document.querySelector('.appliance-container');
+                } else if(whichSort == "ustensils") {
+                    //DOMElement = document.querySelector('.ustensils-container')
+                }
+
+                this.displaySelectedItem()
+            })
+
             DOMElement.appendChild(elementSpan)
         })
+        //ajout de l'add event listener sur tout les items de la liste déroulante qu'on vient de remplir
+        //let items = DOMElement.querySelectorAll('.result-item');
+
+       
+        /*for (const item of items) {
+            item.addEventListener("click", (event) => {
+                console.log(event.target.innerText)
+
+                if(whichSort == "ingredient") {
+                    this.listIngredientSelected.add(event.target.innerText)
+                } else if(whichSort == "appliance") {
+                    //DOMElement = document.querySelector('.appliance-container');
+                } else if(whichSort == "ustensils") {
+                    //DOMElement = document.querySelector('.ustensils-container')
+                }
+
+                //lancement de recherche ici
+                this.displaySelectedItem()
+            })
+        }*/
+
+    }
+
+    displaySelectedItem() {
+        console.log(this.listIngredientSelected)
     }
 
     getElementsFilteredSpan(specificElement) {
@@ -229,7 +273,7 @@ class RecipesView {
 
                     //this.addListenerTagElements();
                 }
-                this.addListenerTagElements();
+                //this.addListenerTagElements();
             })
         })
 
@@ -270,6 +314,7 @@ class RecipesView {
     }
 
     addListenerTagElements() {
+        console.log("addListenerTagElmnt")
         let futureTagElements = document.querySelectorAll('.result-item');
         let tagBloc = document.querySelector('.taglist');
         let color;

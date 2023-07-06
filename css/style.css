@@ -155,9 +155,17 @@ main {
     overflow-x: hidden;
     padding: 10px 10px 0 10px;
     position: absolute;
-    max-width: 650px;
+    max-width: 644.5px;
     width: 100%;
     border-radius: 0 0 5px 5px;
+}
+
+.appliance-container {
+    max-width: 629.5px;
+}
+
+.ustensils-container {
+    max-width: 636px;
 }
 
 .result-item {
