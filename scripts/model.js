@@ -164,7 +164,7 @@ class Model{
                         allRecipesNeeded.add(recipe)
                     }
                 })
-            } else if(whichbar == "ustensils") {
+            } else if(whichbar == "ustensil") {
                 allRecipes.forEach(recipe => {
                     recipe.ustensils.forEach(ustensil => {
                         if(ustensil.toLowerCase().includes(wordSearched)){

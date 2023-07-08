@@ -28,7 +28,7 @@ class Controller {
         this.recipeView.addListenerSearchbarUstensils();
         
         /*let test = document.querySelector('.taglist');
-        let test2 = this.recipeView.createTag("Patate", "ingredients-bg");
+        let test2 = this.recipeView.createTag("Patate", "ingredient-bg");
         test.appendChild(test2)*/
 
     };
@@ -50,7 +50,7 @@ class Controller {
 
             this.recipeView.displaySpecificFilter(showSpecificElements.finalSortIngredient, 'ingredient');
             this.recipeView.displaySpecificFilter(showSpecificElements.finalSortAppliance, 'appliance');
-            this.recipeView.displaySpecificFilter(showSpecificElements.finalSortUstensils, 'ustensils');
+            this.recipeView.displaySpecificFilter(showSpecificElements.finalSortUstensils, 'ustensil');
             
             /* FIN TEST */
 
@@ -86,21 +86,21 @@ class Controller {
             listOfRecipes = this.model.getBrowseList(document.querySelector('.searchbar-input').value.toLowerCase(), await this.model.getRecipes());
         }
         
-        if(document.querySelector('.searchbar-ingredients').value.length >= 2) {
-            let listOfRecipesWhichMatch = this.model.getBrowseListForSpecificSort("ingredient", document.querySelector('.searchbar-ingredients').value.toLowerCase(), listOfRecipes)
+        if(document.querySelector('.searchbar-ingredient').value.length >= 2) {
+            let listOfRecipesWhichMatch = this.model.getBrowseListForSpecificSort("ingredient", document.querySelector('.searchbar-ingredient').value.toLowerCase(), listOfRecipes)
             console.log(listOfRecipesWhichMatch.finalSortIngredient)
 
             this.recipeView.displaySpecificFilter(listOfRecipesWhichMatch.finalSortIngredient, "ingredient");
 
             this.recipeView.displaySpecificFilter(listOfRecipesWhichMatch.finalSortAppliance, "appliance");
-            this.recipeView.displaySpecificFilter(listOfRecipesWhichMatch.finalSortUstensils, "ustensils");
+            this.recipeView.displaySpecificFilter(listOfRecipesWhichMatch.finalSortUstensils, "ustensil");
         } else {
             let listRecipeInCaseOfNoWords = this.model.getBrowseListForSpecificSort("ingredient", "", listOfRecipes)
 
             this.recipeView.displaySpecificFilter(listRecipeInCaseOfNoWords.finalSortIngredient, 'ingredient');
 
             this.recipeView.displaySpecificFilter(listRecipeInCaseOfNoWords.finalSortAppliance, 'appliance');
-            this.recipeView.displaySpecificFilter(listRecipeInCaseOfNoWords.finalSortUstensils, 'ustensils');
+            this.recipeView.displaySpecificFilter(listRecipeInCaseOfNoWords.finalSortUstensils, 'ustensil');
             //console.log("nan")
         }
     }
@@ -120,14 +120,14 @@ class Controller {
             this.recipeView.displaySpecificFilter(listOfRecipesWhichMatch.finalSortAppliance, "appliance")
 
             this.recipeView.displaySpecificFilter(listOfRecipesWhichMatch.finalSortIngredient, "ingredient")
-            this.recipeView.displaySpecificFilter(listOfRecipesWhichMatch.finalSortUstensils, "ustensils");
+            this.recipeView.displaySpecificFilter(listOfRecipesWhichMatch.finalSortUstensils, "ustensil");
         } else {
             let listRecipeInCaseOfNoWords = this.model.getBrowseListForSpecificSort("appliance", "", listOfRecipes)
             
             this.recipeView.displaySpecificFilter(listRecipeInCaseOfNoWords.finalSortAppliance, 'appliance');
 
             this.recipeView.displaySpecificFilter(listRecipeInCaseOfNoWords.finalSortIngredient, 'ingredient');
-            this.recipeView.displaySpecificFilter(listRecipeInCaseOfNoWords.finalSortUstensils, 'ustensils');
+            this.recipeView.displaySpecificFilter(listRecipeInCaseOfNoWords.finalSortUstensils, 'ustensil');
         }
     }
 
@@ -139,18 +139,18 @@ class Controller {
             listOfRecipes = this.model.getBrowseList(document.querySelector('.searchbar-input').value.toLowerCase(), await this.model.getRecipes());
         }
 
-        if(document.querySelector('.searchbar-ustensils').value.length >= 2) {
-            let listOfRecipesWhichMatch = this.model.getBrowseListForSpecificSort("ustensils", document.querySelector('.searchbar-ustensils').value.toLowerCase(), listOfRecipes);
+        if(document.querySelector('.searchbar-ustensil').value.length >= 2) {
+            let listOfRecipesWhichMatch = this.model.getBrowseListForSpecificSort("ustensil", document.querySelector('.searchbar-ustensil').value.toLowerCase(), listOfRecipes);
             console.log(listOfRecipesWhichMatch)
 
-            this.recipeView.displaySpecificFilter(listOfRecipesWhichMatch.finalSortUstensils, "ustensils");
+            this.recipeView.displaySpecificFilter(listOfRecipesWhichMatch.finalSortUstensils, "ustensil");
 
             this.recipeView.displaySpecificFilter(listOfRecipesWhichMatch.finalSortAppliance, "appliance");
             this.recipeView.displaySpecificFilter(listOfRecipesWhichMatch.finalSortIngredient, "ingredient");        
         } else {
-            let listRecipeInCaseOfNoWords = this.model.getBrowseListForSpecificSort("ustensils", "", listOfRecipes)
+            let listRecipeInCaseOfNoWords = this.model.getBrowseListForSpecificSort("ustensil", "", listOfRecipes)
 
-            this.recipeView.displaySpecificFilter(listRecipeInCaseOfNoWords.finalSortUstensils, 'ustensils');
+            this.recipeView.displaySpecificFilter(listRecipeInCaseOfNoWords.finalSortUstensils, 'ustensil');
 
             this.recipeView.displaySpecificFilter(listRecipeInCaseOfNoWords.finalSortAppliance, 'appliance');
             this.recipeView.displaySpecificFilter(listRecipeInCaseOfNoWords.finalSortIngredient, 'ingredient');
@@ -183,7 +183,7 @@ class Controller {
             listUstensils = await this.model.getUstensils()
         }
 
-        this.recipeView.displaySpecificFilter(listUstensils, 'ustensils')
+        this.recipeView.displaySpecificFilter(listUstensils, 'ustensil')
         console.log(listUstensils)
     }
 

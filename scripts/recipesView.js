@@ -3,6 +3,8 @@ class RecipesView {
 
     constructor() {
         this.listIngredientSelected = new Set();
+        this.listApplianceSelected = new Set();
+        this.listUstensilSelected = new Set();
     }
 
     async displayRecipes(recipes) {
@@ -91,16 +93,9 @@ class RecipesView {
 
     displaySpecificFilter(specificList, whichSort) {
         let DOMElement;
-        /*let classToSearch = `.${whichSort}-container`
+        let classToSearch = `.${whichSort}-container`
 
-        DOMElement = document.querySelector(classToSearch)*/
-        if(whichSort == "ingredient") {
-            DOMElement = document.querySelector('.ingredients-container');
-        } else if(whichSort == "appliance") {
-            DOMElement = document.querySelector('.appliance-container');
-        } else if(whichSort == "ustensils") {
-            DOMElement = document.querySelector('.ustensils-container')
-        }
+        DOMElement = document.querySelector(classToSearch)
 
         DOMElement.innerHTML = "";
         specificList.forEach(element => {
@@ -112,41 +107,84 @@ class RecipesView {
                 if(whichSort == "ingredient") {
                     this.listIngredientSelected.add(event.target.innerText)
                 } else if(whichSort == "appliance") {
-                    //DOMElement = document.querySelector('.appliance-container');
-                } else if(whichSort == "ustensils") {
-                    //DOMElement = document.querySelector('.ustensils-container')
+                    this.listApplianceSelected.add(event.target.innerText)
+                } else if(whichSort == "ustensil") {
+                    this.listUstensilSelected.add(event.target.innerText)
                 }
 
+                //lancement de recherche sur cette ligne
                 this.displaySelectedItem()
             })
 
             DOMElement.appendChild(elementSpan)
         })
-        //ajout de l'add event listener sur tout les items de la liste déroulante qu'on vient de remplir
-        //let items = DOMElement.querySelectorAll('.result-item');
 
-       
-        /*for (const item of items) {
-            item.addEventListener("click", (event) => {
-                console.log(event.target.innerText)
+    }
 
-                if(whichSort == "ingredient") {
-                    this.listIngredientSelected.add(event.target.innerText)
-                } else if(whichSort == "appliance") {
-                    //DOMElement = document.querySelector('.appliance-container');
-                } else if(whichSort == "ustensils") {
-                    //DOMElement = document.querySelector('.ustensils-container')
+    createTag(elementText, colorBackground) {
+        let div = document.createElement('div');
+        let span = document.createElement('span');
+        let i = document.createElement('i');
+
+        div.classList.add('tag');
+        div.classList.add(colorBackground);
+
+        span.innerText = elementText;
+
+        i.classList.add('fa');
+        i.classList.add('fa-times-circle-o');
+
+        div.appendChild(span);
+        div.appendChild(i);
+
+        console.log(deleteTag(div))
+
+        return(div)
+    }
+
+    deleteTag() {
+        let tagList = document.querySelectorAll(".tag")
+
+        tagList.forEach(tag => {
+            tag.addEventListener('click', () => {
+                if(tag.classList.contains('ingredient-bg')) {
+                    this.listIngredientSelected.delete(tag.innerText);
+                } else if(tag.classList.contains('appliance-bg')) {
+                    this.listApplianceSelected.delete(tag.innerText)
+                } else {
+                    this.listUstensilSelected.delete(tag.innerText)
                 }
 
-                //lancement de recherche ici
                 this.displaySelectedItem()
             })
-        }*/
+        })
 
     }
 
     displaySelectedItem() {
+        //fonction qui affiche le tag à partir des listes
+        console.log("=========================")
         console.log(this.listIngredientSelected)
+        console.log(this.listApplianceSelected)
+        console.log(this.listUstensilSelected)
+
+        let tagBloc = document.querySelector('.taglist');
+        tagBloc.innerHTML = "";
+
+        this.listIngredientSelected.forEach(ingredient => {
+            tagBloc.appendChild(this.createTag(ingredient, 'ingredient-bg'));
+            //this.deleteTag(this.createTag(ingredient, 'ingredient-bg'))
+        })
+
+        this.listApplianceSelected.forEach(appliance => {
+            tagBloc.appendChild(this.createTag(appliance, 'appliance-bg'));
+        })
+
+        this.listUstensilSelected.forEach(ustensil => {
+            tagBloc.appendChild(this.createTag(ustensil, 'ustensil-bg'));
+        })
+
+        this.deleteTag();
     }
 
     getElementsFilteredSpan(specificElement) {
@@ -198,10 +236,10 @@ class RecipesView {
     }
 
     addListenerSearchbarIngredients() {
-        let searchbarIngredientsInput = document.querySelector('.searchbar-ingredients');
+        let searchbarIngredientsInput = document.querySelector('.searchbar-ingredient');
 
         searchbarIngredientsInput.addEventListener('keyup', () => {
-            controller.resetOthersSpecificBar(".searchbar-appliance", ".searchbar-ustensils");
+            controller.resetOthersSpecificBar(".searchbar-appliance", ".searchbar-ustensil");
             controller.searchWithIngredientBar();
         })
     }
@@ -210,16 +248,16 @@ class RecipesView {
         let searchbarApplianceInput = document.querySelector('.searchbar-appliance');
 
         searchbarApplianceInput.addEventListener('keyup', () => {
-            controller.resetOthersSpecificBar(".searchbar-ingredients", ".searchbar-ustensils");
+            controller.resetOthersSpecificBar(".searchbar-ingredient", ".searchbar-ustensil");
             controller.searchWithApplianceBar();
         })
     }
 
     addListenerSearchbarUstensils() {
-        let searchbarUstensilsInput = document.querySelector('.searchbar-ustensils');
+        let searchbarUstensilsInput = document.querySelector('.searchbar-ustensil');
 
         searchbarUstensilsInput.addEventListener('keyup', () => {
-            controller.resetOthersSpecificBar(".searchbar-appliance", ".searchbar-ingredients");
+            controller.resetOthersSpecificBar(".searchbar-appliance", ".searchbar-ingredient");
             controller.searchWithUstensilsBar();
         })
     }
@@ -245,11 +283,11 @@ class RecipesView {
 
         filters.forEach(filter => {
             filter.addEventListener('click', () => {
-                if(filter.classList.contains('sort-ingredients')) {
+                if(filter.classList.contains('sort-ingredient')) {
                     this.toHide(sortSpecific[1], sortSpecific[2]);
                     this.toShow(filters[1], filters[2]);
 
-                    document.querySelector('.sort-ingredients-specific').classList.remove('hide-sort-specific');
+                    document.querySelector('.sort-ingredient-specific').classList.remove('hide-sort-specific');
 
                     filter.classList.add('hide-sort-specific');
 
@@ -263,11 +301,11 @@ class RecipesView {
                     filter.classList.add('hide-sort-specific');
 
                     //this.addListenerTagElements();
-                } else if(filter.classList.contains('sort-ustensils')) {
+                } else if(filter.classList.contains('sort-ustensil')) {
                     this.toHide(sortSpecific[0], sortSpecific[1]);
                     this.toShow(filters[0], filters[1]);
 
-                    document.querySelector('.sort-ustensils-specific').classList.remove('hide-sort-specific');
+                    document.querySelector('.sort-ustensil-specific').classList.remove('hide-sort-specific');
 
                     filter.classList.add('hide-sort-specific');
 
@@ -280,15 +318,15 @@ class RecipesView {
         toCloseButtons.forEach(button => {
             button.addEventListener('click', (e) => {
                 console.log(e.target.parentNode.parentNode)
-                if(button.parentNode.parentNode.classList.contains('sort-ingredients-specific')) {
+                if(button.parentNode.parentNode.classList.contains('sort-ingredient-specific')) {
                     button.parentNode.parentNode.classList.add('hide-sort-specific');
-                    document.querySelector('.sort-ingredients').classList.remove('hide-sort-specific');
+                    document.querySelector('.sort-ingredient').classList.remove('hide-sort-specific');
                 } else if(button.parentNode.parentNode.classList.contains('sort-appliance-specific')) {
                     button.parentNode.parentNode.classList.add('hide-sort-specific');
                     document.querySelector('.sort-appliance').classList.remove('hide-sort-specific');
-                } else if(button.parentNode.parentNode.classList.contains('sort-ustensils-specific')) {
+                } else if(button.parentNode.parentNode.classList.contains('sort-ustensil-specific')) {
                     button.parentNode.parentNode.classList.add('hide-sort-specific');
-                    document.querySelector('.sort-ustensils').classList.remove('hide-sort-specific');
+                    document.querySelector('.sort-ustensil').classList.remove('hide-sort-specific');
                 }
             })
         })
@@ -313,7 +351,7 @@ class RecipesView {
         return(div)
     }
 
-    addListenerTagElements() {
+    /*addListenerTagElements() {
         console.log("addListenerTagElmnt")
         let futureTagElements = document.querySelectorAll('.result-item');
         let tagBloc = document.querySelector('.taglist');
@@ -326,12 +364,12 @@ class RecipesView {
 
                 console.log(e.target.parentNode)
 
-                if(e.target.parentNode.classList.contains("ingredients-bg")) {
-                    color = "ingredients-bg";
+                if(e.target.parentNode.classList.contains("ingredient-bg")) {
+                    color = "ingredient-bg";
                 } else if(e.target.parentNode.classList.contains("appliance-bg")) {
                     color = "appliance-bg"
                 } else {
-                    color = "ustensils-bg"
+                    color = "ustensil-bg"
                 }
 
                 if(allTags.length == 0){
@@ -344,15 +382,15 @@ class RecipesView {
                             tagBloc.appendChild(this.createTag(futureTag.innerText, color));
                         }
                         /*if(tag.innerText != futureTag.innerText){
-                            tagBloc.appendChild(this.createTag(futureTag.innerText, "ingredients-bg"));
+                            tagBloc.appendChild(this.createTag(futureTag.innerText, "ingredient-bg"));
                         }*/
-                    })
+                    /*})
                 }
                           
                 console.log(document.querySelectorAll('.tag'))
                 
             })
         })
-    }
+    }*/
 
 }
