@@ -5,6 +5,8 @@ class RecipesView {
         this.listIngredientSelected = new Set();
         this.listApplianceSelected = new Set();
         this.listUstensilSelected = new Set();
+
+        this.listOfRecipes ;
     }
 
     async displayRecipes(recipes) {
@@ -17,6 +19,8 @@ class RecipesView {
         });
 
         //this.addListenerBonjour() 
+
+        console.log(this.listOfRecipes)
     }
 
     displayNoResults() {
@@ -94,14 +98,13 @@ class RecipesView {
     displaySpecificFilter(specificList, whichSort) {
         let DOMElement;
         let classToSearch = `.${whichSort}-container`
+        let category = `${whichSort}`
 
         DOMElement = document.querySelector(classToSearch)
 
         DOMElement.innerHTML = "";
         specificList.forEach(element => {
-            //console.log(element.charAt(0).toUpperCase() + element.slice(1))
             const elementSpan = this.getElementsFilteredSpan(element.charAt(0).toUpperCase() + element.slice(1));
-            //const elementSpan = this.getElementsFilteredSpan(element)
 
             elementSpan.addEventListener('click', (event) => {
                 if(whichSort == "ingredient") {
@@ -113,6 +116,7 @@ class RecipesView {
                 }
 
                 //lancement de recherche sur cette ligne
+                controller.searchWithTag(this.listOfRecipes, elementSpan.innerText, category)
                 this.displaySelectedItem()
             })
 
@@ -188,11 +192,16 @@ class RecipesView {
     }
 
     getElementsFilteredSpan(specificElement) {
-        let span = document.createElement('span')
-        span.classList.add('result-item');
-        span.innerText = specificElement;
+        let p = document.createElement('p')
+        p.classList.add('parahraphItem')
 
-        return(span)
+        let span = document.createElement('span')
+        span.classList.add('item');
+        span.innerText = specificElement;
+        
+        p.appendChild(span)
+
+        return(p)
     }
 
     /*addListenerBonjour() {
@@ -353,7 +362,7 @@ class RecipesView {
 
     /*addListenerTagElements() {
         console.log("addListenerTagElmnt")
-        let futureTagElements = document.querySelectorAll('.result-item');
+        let futureTagElements = document.querySelectorAll('.item');
         let tagBloc = document.querySelector('.taglist');
         let color;
         //console.log(tagElements)

@@ -168,22 +168,27 @@ main {
     max-width: 636px;
 }
 
-.result-item {
-    font-size: 18px;
-    color: white;
-    /*border: 2px solid yellow;*/
-    margin-bottom: 10px;
+.parahraphItem {
+    margin: 0 0 10px 0; 
 }
 
-.ingredient-container .result-item:hover {
+.item {
+    font-size: 18px;
+    color: white;
+    /*border: 2px solid yellow;
+    margin-bottom: 10px;*/
+    padding: 2px 5px 2px 5px;
+}
+
+.ingredient-container .parahraphItem:hover .item {
     background-color: #0A64EB;
 }
 
-.appliance-container .result-item:hover {
+.appliance-container .item:hover {
     background-color: #3BCE89;
 }
 
-.ustensil-container .result-item:hover {
+.ustensil-container .item:hover {
     background-color: #E83521;
 }
 

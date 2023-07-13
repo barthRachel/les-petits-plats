@@ -180,14 +180,14 @@ class Model{
             }
         }
         
-        console.log("=================")
+        /*console.log("=================")
         console.log(finalSortIngredient)
         console.log("=================")
         console.log(finalSortAppliance)
         console.log("=================")
         console.log(finalSortUstensils)
         console.log("=================")
-        console.log(allRecipesNeeded)
+        console.log(allRecipesNeeded)*/
 
         return({finalSortIngredient, finalSortAppliance, finalSortUstensils, allRecipesNeeded})
     }

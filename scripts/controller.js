@@ -41,6 +41,11 @@ class Controller {
 
             this.recipeView.displayRecipes(finalSort)
 
+            // test
+            this.recipeView.listOfRecipes = finalSort
+            
+            //fin test
+
             //console.log(finalSort)
 
             /* PARTIE TEST POUR LES FILTRES */
@@ -58,10 +63,14 @@ class Controller {
                 this.recipeView.displayNoResults()
             }
         } else {
-            this.recipeView.displayRecipes(await this.model.getRecipes());
+            let allRecipe = await this.model.getRecipes()
+            this.recipeView.displayRecipes(allRecipe);
+
+            this.recipeView.listOfRecipes = allRecipe
         }
-    
-        
+
+        console.log(this.recipeView.listOfRecipes)
+       
     }
 
     // fonction qui efface les caractères tapés dans les 2 inputs de filtres avancés passé en paramètre 
@@ -155,6 +164,27 @@ class Controller {
             this.recipeView.displaySpecificFilter(listRecipeInCaseOfNoWords.finalSortAppliance, 'appliance');
             this.recipeView.displaySpecificFilter(listRecipeInCaseOfNoWords.finalSortIngredient, 'ingredient');
         }
+    }
+
+    async searchWithTag(listOfRecipes = null, tag, categoryOfTag) {
+        if(listOfRecipes == null) {
+            listOfRecipes = await this.model.getRecipes()
+        }
+
+        let allListSorted = this.model.getBrowseListForSpecificSort(categoryOfTag, tag.toLowerCase(), listOfRecipes)
+
+        let recipeSorted = allListSorted.allRecipesNeeded
+        this.recipeView.listOfRecipes = recipeSorted;
+        this.recipeView.displayRecipes(recipeSorted)
+
+        this.recipeView.displaySpecificFilter(allListSorted.finalSortIngredient, "ingredient")
+        this.recipeView.displaySpecificFilter(allListSorted.finalSortAppliance, "appliance")
+        this.recipeView.displaySpecificFilter(allListSorted.finalSortUstensils, "ustensil")
+
+        console.log("=========")
+        console.log(listOfRecipes)
+        console.log(tag)
+        console.log(categoryOfTag)
     }
 
     // fonction pour afficher les ingrédients - filtres avancés

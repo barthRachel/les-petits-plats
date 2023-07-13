@@ -163,7 +163,7 @@
                     "quantity": 2
             },
             {
-                "ingredient": "Crème fraîche",
+                "ingredient": "crème fraîche",
                 "quantity": 2,
                 "unit": "cuillères à soupe"
             },
@@ -201,12 +201,12 @@
                     "quantity": "2"
                 },
                 {
-                    "ingredient":"Crème fraîche",
+                    "ingredient":"crème fraîche",
                     "quantity":25,
                     "unit": "cl"
                 },
                 {
-                    "ingredient": "Sucre en Poudre",
+                    "ingredient": "sucre en poudre",
                     "quantity": 100,
                     "unit":"grammes"
                 },
@@ -279,7 +279,7 @@
                     "quantity": 2
             },
             {
-                "ingredient": "Sucre en Poudre",
+                "ingredient": "sucre en poudre",
                 "quantity": "110",
                 "unit": "grammes"
             },
@@ -686,7 +686,7 @@
                     "unit": "grammes"
                 },
                 {
-                    "ingredient": "Crème fraîche",
+                    "ingredient": "crème fraîche",
                     "quantity": 200,
                     "unit": "grammes"
                 },
@@ -736,7 +736,7 @@
                     "unit": "cl"
                 },
                 {
-                    "ingredient": "Crème fraîche",
+                    "ingredient": "crème fraîche",
                     "quantity" : 1,
                     "unit": "cuillères à soupe"
                 }
@@ -806,7 +806,7 @@
                     "quantity": 3
                 },
                 {
-                    "ingredient": "Crème Fraîche",
+                    "ingredient": "crème fraîche",
                     "quantity": 20,
                     "unit": "cl"
                 },
@@ -940,7 +940,7 @@
                     "quantity": 1
                 },
                 {
-                    "ingredient": "Crème fraîche",
+                    "ingredient": "crème fraîche",
                     "quantity": 4,
                     "unit": "cuillère à soupe"
                 },
@@ -985,7 +985,7 @@
                     "unit":"grammes"
                 },
                 {
-                    "ingredient": "Crème fraîche",
+                    "ingredient": "crème fraîche",
                     "quantity": 10,
                     "unit": "cl"
                 }
@@ -1172,7 +1172,7 @@
                     "unit": "grammes"
                 },
                 {
-                    "ingredient": "Crème fraîche",
+                    "ingredient": "crème fraîche",
                     "quantity": 20,
                     "unit": "cl"
                 },
@@ -1208,7 +1208,7 @@
                     "unit": "grammes"
                 },
                 {
-                    "ingredient": "Crème fraîche",
+                    "ingredient": "crème fraîche",
                     "quantity": 2,
                     "unit":"cuillères à soupe"
                 },
@@ -1382,7 +1382,7 @@
                     "quantity": 3
                 },
                 {
-                    "ingredient": "Sucre en poudre",
+                    "ingredient": "sucre en poudre",
                     "quantity": 4,
                     "unit":"cuillères à café"
                 },
@@ -1611,7 +1611,7 @@
                     "unit": "grammes"
                 },
                 {
-                    "ingredient": "Crème Fraîche",
+                    "ingredient": "crème fraîche",
                     "quantity": 20,
                     "unit":"cl"
                 }
