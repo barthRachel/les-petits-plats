@@ -17,9 +17,7 @@ class RecipesView {
         recipes.forEach((recipe) => {
             const recipeCard = this.getRecipeCard(recipe);
             recipeSection.appendChild(recipeCard);
-        });
-
-        //this.addListenerBonjour() 
+        }); 
 
         console.log(this.listOfRecipes)
     }
