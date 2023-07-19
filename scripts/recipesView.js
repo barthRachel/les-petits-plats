@@ -6,7 +6,8 @@ class RecipesView {
         this.listApplianceSelected = new Set();
         this.listUstensilSelected = new Set();
 
-        this.listOfRecipes ;
+        this.listOfRecipes;
+        this.listOfRecipesCopy;
     }
 
     async displayRecipes(recipes) {
@@ -98,9 +99,10 @@ class RecipesView {
     displaySpecificFilter(specificList, whichSort) {
         let DOMElement;
         let classToSearch = `.${whichSort}-container`
-        let category = `${whichSort}`
+        let searchbarToEmpty = `.searchbar-${whichSort}`
 
         DOMElement = document.querySelector(classToSearch)
+        
 
         DOMElement.innerHTML = "";
         specificList.forEach(element => {
@@ -109,14 +111,18 @@ class RecipesView {
             elementSpan.addEventListener('click', (event) => {
                 if(whichSort == "ingredient") {
                     this.listIngredientSelected.add(event.target.innerText)
+                    document.querySelector(searchbarToEmpty).value = "";
                 } else if(whichSort == "appliance") {
                     this.listApplianceSelected.add(event.target.innerText)
+                    document.querySelector(searchbarToEmpty).value = "";
                 } else if(whichSort == "ustensil") {
                     this.listUstensilSelected.add(event.target.innerText)
+                    document.querySelector(searchbarToEmpty).value = "";
                 }
 
                 //lancement de recherche sur cette ligne
-                controller.searchWithTag(this.listOfRecipes, elementSpan.innerText, category)
+                console.log(this.listOfRecipes)
+                controller.searchWithTag(this.listOfRecipes, elementSpan.innerText, whichSort)
                 this.displaySelectedItem()
             })
 
@@ -141,12 +147,10 @@ class RecipesView {
         div.appendChild(span);
         div.appendChild(i);
 
-        console.log(deleteTag(div))
-
         return(div)
     }
 
-    deleteTag() {
+    addListenerDeleteTag() {
         let tagList = document.querySelectorAll(".tag")
 
         tagList.forEach(tag => {
@@ -160,9 +164,12 @@ class RecipesView {
                 }
 
                 this.displaySelectedItem()
+                controller.searchWithDeleteTag()
             })
+            //console.log(tagList)
         })
 
+        console.log(this.listOfRecipes)
     }
 
     displaySelectedItem() {
@@ -177,7 +184,6 @@ class RecipesView {
 
         this.listIngredientSelected.forEach(ingredient => {
             tagBloc.appendChild(this.createTag(ingredient, 'ingredient-bg'));
-            //this.deleteTag(this.createTag(ingredient, 'ingredient-bg'))
         })
 
         this.listApplianceSelected.forEach(appliance => {
@@ -188,7 +194,7 @@ class RecipesView {
             tagBloc.appendChild(this.createTag(ustensil, 'ustensil-bg'));
         })
 
-        this.deleteTag();
+        this.addListenerDeleteTag();
     }
 
     getElementsFilteredSpan(specificElement) {
@@ -203,14 +209,6 @@ class RecipesView {
 
         return(p)
     }
-
-    /*addListenerBonjour() {
-        let btnBonjour = document.querySelector('#btnBonjour')
-
-        btnBonjour.addEventListener('click', () => {
-            controller.direBonjour();
-        })
-    }*/
 
     addListenerSearchbar() {
         let searchbarInput = document.querySelector('.searchbar-input');
@@ -287,6 +285,7 @@ class RecipesView {
         let filters = document.querySelectorAll('.sort');
         let sortSpecific = document.querySelectorAll('.sort-specific');
         let toCloseButtons = document.querySelectorAll('.toClose');
+        let widthContainer;
 
         console.log(toCloseButtons)
 
@@ -300,7 +299,10 @@ class RecipesView {
 
                     filter.classList.add('hide-sort-specific');
 
-                    //this.addListenerTagElements();
+                    widthContainer = document.querySelector('.sort-ingredient-specific').offsetWidth;
+
+                    document.querySelector('.ingredient-container').style.width = `${widthContainer-20}px` 
+
                 } else if(filter.classList.contains('sort-appliance')) {
                     this.toHide(sortSpecific[0], sortSpecific[2]);
                     this.toShow(filters[0], filters[2]);
@@ -309,7 +311,10 @@ class RecipesView {
 
                     filter.classList.add('hide-sort-specific');
 
-                    //this.addListenerTagElements();
+                    widthContainer = document.querySelector('.sort-appliance-specific').offsetWidth;
+
+                    document.querySelector('.appliance-container').style.width = `${widthContainer-20}px` 
+
                 } else if(filter.classList.contains('sort-ustensil')) {
                     this.toHide(sortSpecific[0], sortSpecific[1]);
                     this.toShow(filters[0], filters[1]);
@@ -318,15 +323,16 @@ class RecipesView {
 
                     filter.classList.add('hide-sort-specific');
 
-                    //this.addListenerTagElements();
+                    widthContainer = document.querySelector('.sort-ustensil-specific').offsetWidth;
+
+                    document.querySelector('.ustensil-container').style.width = `${widthContainer-20}px` 
+
                 }
-                //this.addListenerTagElements();
             })
         })
 
         toCloseButtons.forEach(button => {
             button.addEventListener('click', (e) => {
-                console.log(e.target.parentNode.parentNode)
                 if(button.parentNode.parentNode.classList.contains('sort-ingredient-specific')) {
                     button.parentNode.parentNode.classList.add('hide-sort-specific');
                     document.querySelector('.sort-ingredient').classList.remove('hide-sort-specific');
@@ -340,66 +346,4 @@ class RecipesView {
             })
         })
     }
-
-    createTag(elementText, colorBackground) {
-        let div = document.createElement('div');
-        let span = document.createElement('span');
-        let i = document.createElement('i');
-
-        div.classList.add('tag');
-        div.classList.add(colorBackground);
-
-        span.innerText = elementText;
-
-        i.classList.add('fa');
-        i.classList.add('fa-times-circle-o');
-
-        div.appendChild(span);
-        div.appendChild(i);
-
-        return(div)
-    }
-
-    /*addListenerTagElements() {
-        console.log("addListenerTagElmnt")
-        let futureTagElements = document.querySelectorAll('.item');
-        let tagBloc = document.querySelector('.taglist');
-        let color;
-        //console.log(tagElements)
-
-        futureTagElements.forEach(futureTag => {
-            futureTag.addEventListener('click', (e) => {
-                let allTags = document.querySelectorAll('.tag');
-
-                console.log(e.target.parentNode)
-
-                if(e.target.parentNode.classList.contains("ingredient-bg")) {
-                    color = "ingredient-bg";
-                } else if(e.target.parentNode.classList.contains("appliance-bg")) {
-                    color = "appliance-bg"
-                } else {
-                    color = "ustensil-bg"
-                }
-
-                if(allTags.length == 0){
-                    tagBloc.appendChild(this.createTag(futureTag.innerText, color));
-                } else {
-                    allTags.forEach(tag => {
-                        console.log(tag.innerText)
-                        console.log(futureTag.innerText)
-                        if(tag.innerText != futureTag.innerText){
-                            tagBloc.appendChild(this.createTag(futureTag.innerText, color));
-                        }
-                        /*if(tag.innerText != futureTag.innerText){
-                            tagBloc.appendChild(this.createTag(futureTag.innerText, "ingredient-bg"));
-                        }*/
-                    /*})
-                }
-                          
-                console.log(document.querySelectorAll('.tag'))
-                
-            })
-        })
-    }*/
-
 }

@@ -13,12 +13,6 @@ body, header {
     max-width: 1440px;
 }
 
-header {
-}
-
-main {
-}
-
 /* Search section's style */
 .search_section {
     padding: 25px 100px;
@@ -93,7 +87,7 @@ main {
     margin-right: 20px;
 }
 
-.sort:last-child /*, .sort-specific:last-child*/ {
+.sort:last-child {
     margin-right: 0;
 }
 
@@ -104,12 +98,9 @@ main {
 
 .input-title i {
     padding: 20px;
-    /*border: 2px solid red;*/
 }
 
 .sort-specific {
-    /*border: 2px solid red;*/
-    /*padding: 20px;*/
     border-radius: 5px 5px 0 0;
     max-width: 670px;
     width: 100%;
@@ -134,7 +125,6 @@ main {
 
 .input-title input {
     font-size: 18px;
-    /*margin-right: 15px;*/
     background-color: transparent;
     width: 100%;
     padding: 20px;
@@ -147,7 +137,6 @@ main {
 }
 
 .result-container {
-    /*border: 2px solid green;*/
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     max-height: 400px;
@@ -155,17 +144,8 @@ main {
     overflow-x: hidden;
     padding: 10px 10px 0 10px;
     position: absolute;
-    max-width: 644.5px;
     width: 100%;
     border-radius: 0 0 5px 5px;
-}
-
-.appliance-container {
-    max-width: 629.5px;
-}
-
-.ustensil-container {
-    max-width: 636px;
 }
 
 .parahraphItem {
@@ -175,8 +155,6 @@ main {
 .item {
     font-size: 18px;
     color: white;
-    /*border: 2px solid yellow;
-    margin-bottom: 10px;*/
     padding: 2px 5px 2px 5px;
 }
 
@@ -306,7 +284,6 @@ main {
 }
 
 .recipe_section article .ingredientsAndDescription {
-    /*height: 100%;*/
     height: 105px;
 }
 

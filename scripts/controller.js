@@ -8,13 +8,8 @@ class Controller {
     }
 
     async init() {
-        //let model = new Model();
         const recipes = await this.model.getRecipes();
-        
-        //let listIngredient = await model.getAppliance();
-        //console.log(listIngredient)
-        
-        //let recipeView = new RecipesView();
+
         this.recipeView.displayRecipes(recipes);
         this.recipeView.addListenerSearchbar();
         this.recipeView.addListenerSpecificFilter();
@@ -26,30 +21,18 @@ class Controller {
         this.recipeView.addListenerSearchbarIngredients();
         this.recipeView.addListenerSearchbarAppliance();
         this.recipeView.addListenerSearchbarUstensils();
-        
-        /*let test = document.querySelector('.taglist');
-        let test2 = this.recipeView.createTag("Patate", "ingredient-bg");
-        test.appendChild(test2)*/
 
     };
 
     // fonction de recherche de la grande barre
     async searchWithBar(){
         if(document.querySelector('.searchbar-input').value.length >= 3) {
-            //let finalSort = finalSortSet(await this.model.getRecipeByTitle(document.querySelector('.searchbar-input').value.toLowerCase()), await this.model.getRecipeByDesc(document.querySelector('.searchbar-input').value.toLowerCase()), await this.model.getRecipeByIngr(document.querySelector('.searchbar-input').value.toLowerCase()))
             let finalSort = this.model.getBrowseList(document.querySelector('.searchbar-input').value.toLowerCase(), await this.model.getRecipes());
 
             this.recipeView.displayRecipes(finalSort)
 
-            // test
-            this.recipeView.listOfRecipes = finalSort
+            this.recipeView.listOfRecipes = [...finalSort]
             
-            //fin test
-
-            //console.log(finalSort)
-
-            /* PARTIE TEST POUR LES FILTRES */
-
             let showSpecificElements = this.model.getBrowseListForSpecificSort('ingredient', "", finalSort)
             console.log(showSpecificElements)
 
@@ -57,8 +40,6 @@ class Controller {
             this.recipeView.displaySpecificFilter(showSpecificElements.finalSortAppliance, 'appliance');
             this.recipeView.displaySpecificFilter(showSpecificElements.finalSortUstensils, 'ustensil');
             
-            /* FIN TEST */
-
             if(finalSort.size == 0) {
                 this.recipeView.displayNoResults()
             }
@@ -66,10 +47,8 @@ class Controller {
             let allRecipe = await this.model.getRecipes()
             this.recipeView.displayRecipes(allRecipe);
 
-            this.recipeView.listOfRecipes = allRecipe
+            this.recipeView.listOfRecipes = [...allRecipe]
         }
-
-        console.log(this.recipeView.listOfRecipes)
        
     }
 
@@ -110,7 +89,6 @@ class Controller {
 
             this.recipeView.displaySpecificFilter(listRecipeInCaseOfNoWords.finalSortAppliance, 'appliance');
             this.recipeView.displaySpecificFilter(listRecipeInCaseOfNoWords.finalSortUstensils, 'ustensil');
-            //console.log("nan")
         }
     }
 
@@ -171,20 +149,90 @@ class Controller {
             listOfRecipes = await this.model.getRecipes()
         }
 
+        this.recipeView.listOfRecipesCopy = listOfRecipes;
+
         let allListSorted = this.model.getBrowseListForSpecificSort(categoryOfTag, tag.toLowerCase(), listOfRecipes)
 
-        let recipeSorted = allListSorted.allRecipesNeeded
-        this.recipeView.listOfRecipes = recipeSorted;
-        this.recipeView.displayRecipes(recipeSorted)
+        this.recipeView.listOfRecipes = [...allListSorted.allRecipesNeeded];
 
-        this.recipeView.displaySpecificFilter(allListSorted.finalSortIngredient, "ingredient")
-        this.recipeView.displaySpecificFilter(allListSorted.finalSortAppliance, "appliance")
-        this.recipeView.displaySpecificFilter(allListSorted.finalSortUstensils, "ustensil")
+        this.recipeView.displayRecipes(allListSorted.allRecipesNeeded)
 
-        console.log("=========")
-        console.log(listOfRecipes)
-        console.log(tag)
-        console.log(categoryOfTag)
+        this.recipeView.displaySpecificFilter(await this.model.getIngredients(allListSorted.allRecipesNeeded), "ingredient")
+        this.recipeView.displaySpecificFilter(await this.model.getAppliance(allListSorted.allRecipesNeeded), "appliance")
+        this.recipeView.displaySpecificFilter(await this.model.getUstensils(allListSorted.allRecipesNeeded), "ustensil")
+    }
+
+    async searchWithDeleteTag() {
+        let listOfRecipes = await this.model.getRecipes()
+
+        let tagList = document.querySelectorAll('.tag')
+        let recipeNeededBeforeSort = []
+        let recipeNeededAfterSort = new Set()
+        let recipeInCommon = new Set();
+        let sortedStep;
+
+        if(tagList.length === 0) {
+            this.searchWithBar()
+        } else {
+            tagList.forEach(tag => {
+                if(tag.classList.contains("ingredient-bg")) {
+                    sortedStep = this.model.getBrowseListForSpecificSort("ingredient", tag.innerText.toLowerCase(), listOfRecipes)
+                    sortedStep = sortedStep.allRecipesNeeded                   
+                    recipeNeededBeforeSort.push(sortedStep)
+                } else if(tag.classList.contains("appliance-bg")) {
+                    sortedStep = this.model.getBrowseListForSpecificSort("appliance", tag.innerText.toLowerCase(), listOfRecipes)
+                    sortedStep = sortedStep.allRecipesNeeded
+                    recipeNeededBeforeSort.push(sortedStep)
+                } else if(tag.classList.contains("ustensil-bg")) {
+                    sortedStep = this.model.getBrowseListForSpecificSort("ustensil", tag.innerText.toLowerCase(), listOfRecipes)
+                    sortedStep = sortedStep.allRecipesNeeded
+                    recipeNeededBeforeSort.push(sortedStep)
+                }
+                
+            })
+        }
+
+        if(recipeNeededBeforeSort.length > 1){
+            for(let recipe of recipeNeededBeforeSort[0]) {
+                for(let recipeBis of recipeNeededBeforeSort[1]) {
+                    if(recipe.name === recipeBis.name && recipeNeededAfterSort.has(recipe) === false) {
+                        recipeNeededAfterSort.add(recipe)
+                    }
+                }
+            }
+
+            for(let recipeTer of recipeNeededAfterSort) {
+                for(let i = 2 ; i < recipeNeededBeforeSort.length ; i++) {
+                    for(let recipeQ of recipeNeededBeforeSort[i]) {
+                        if(recipeTer.name === recipeQ.name && recipeInCommon.has(recipeQ) == false) {
+                            recipeInCommon.add(recipeQ)
+                        }
+                    }
+                }
+            }
+        } else {
+            if(recipeNeededBeforeSort[0]){
+                for(let recipe of recipeNeededBeforeSort[0]) {
+                    recipeNeededAfterSort.add(recipe)
+                }
+            }
+
+        }
+
+        this.recipeView.displayRecipes(recipeNeededAfterSort)
+
+        if(recipeNeededAfterSort.size === 0){
+            this.searchWithBar()
+
+            this.recipeView.displaySpecificFilter(await this.model.getIngredients(listOfRecipes), "ingredient")
+            this.recipeView.displaySpecificFilter(await this.model.getAppliance(listOfRecipes), "appliance")
+            this.recipeView.displaySpecificFilter(await this.model.getUstensils(listOfRecipes), "ustensil")
+        } else {
+            this.recipeView.displaySpecificFilter(await this.model.getIngredients(recipeNeededAfterSort), "ingredient")
+            this.recipeView.displaySpecificFilter(await this.model.getAppliance(recipeNeededAfterSort), "appliance")
+            this.recipeView.displaySpecificFilter(await this.model.getUstensils(recipeNeededAfterSort), "ustensil")
+    
+        }
     }
 
     // fonction pour afficher les ingrédients - filtres avancés
@@ -216,12 +264,4 @@ class Controller {
         this.recipeView.displaySpecificFilter(listUstensils, 'ustensil')
         console.log(listUstensils)
     }
-
-
-
-    /*direBonjour() {
-        console.log("Bonjour")
-    }
-        //Function pour test - à retirer après
-    */
 }

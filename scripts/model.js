@@ -51,47 +51,6 @@ class Model{
         return(allAppliance)
     }
 
-    /*async getRecipeByTitle(titleNeeded) {
-        const allRecipes = await this.getRecipes();
-        let recipesByName = new Set();
-    
-        allRecipes.forEach(recipe => {
-            if(recipe.name.toLowerCase().includes(titleNeeded)){
-                recipesByName.add(recipe)
-            }
-        });
-    
-        return(recipesByName)
-    }
-    
-    async getRecipeByDesc(wordNeeded) {
-        const allRecipes = await this.getRecipes();
-        let recipesByDesc = new Set();
-    
-        allRecipes.forEach(recipe => {
-            if(recipe.description.toLowerCase().includes(wordNeeded)){
-                recipesByDesc.add(recipe)
-            }
-        });
-    
-        return(recipesByDesc)
-    }
-    
-    async getRecipeByIngr(ingredientNeeded) {
-        const allRecipes = await this.getRecipes();
-        let recipesByIng = new Set();
-    
-        for (const recipe of allRecipes) {
-            for (const ingredient of recipe.ingredients) {
-                if(ingredient.ingredient.toLowerCase().includes(ingredientNeeded)){
-                    recipesByIng.add(recipe)
-                }
-            }
-        }
-    
-        return(recipesByIng)
-    }*/
-
     /* fonction pour donner les recettes qui correspondent à la chaîne de caractères
     taper dans la grande barre de recherche*/
     getBrowseList(wordSearched, allRecipes) {
@@ -180,51 +139,6 @@ class Model{
             }
         }
         
-        /*console.log("=================")
-        console.log(finalSortIngredient)
-        console.log("=================")
-        console.log(finalSortAppliance)
-        console.log("=================")
-        console.log(finalSortUstensils)
-        console.log("=================")
-        console.log(allRecipesNeeded)*/
-
         return({finalSortIngredient, finalSortAppliance, finalSortUstensils, allRecipesNeeded})
     }
-
-    /*getIngredientsSorted(wordSearched, allRecipes) { //donne la liste des recettes dont les ingred correspond à la recherche
-        let listOfMatchedIngredientsRecipes = new Set();
-        allRecipes.forEach(recipe => {
-            recipe.ingredients.forEach(ingredient => {
-                if(ingredient.ingredient.toLowerCase().includes(wordSearched)){
-                    listOfMatchedIngredientsRecipes.add(recipe);
-                }
-            })
-        })
-        console.log(listOfMatchedIngredientsRecipes)
-        return(listOfMatchedIngredientsRecipes)
-    }
-
-    getApplianceSorted(wordSearched, allAppliance) {
-        let listOfMatchedAppliance = new Set();
-        allAppliance.forEach(appliance => {
-            if(appliance.toLowerCase().includes(wordSearched)){
-                listOfMatchedAppliance.add(appliance);
-            }
-        })
-
-        return(listOfMatchedAppliance)
-    }
-
-    getUstensilsSrted(wordSearched, allUstensils) {
-        let listOfMatchedUstensils = new Set();
-        allUstensils.forEach(ustensil => {
-            if(ustensil.toLowerCase().includes(wordSearched)){
-                listOfMatchedUstensils.add(ustensil);
-            }
-        })
-
-        return(listOfMatchedUstensils)
-    }*/
 }
-
