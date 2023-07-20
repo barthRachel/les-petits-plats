@@ -54,11 +54,9 @@ class Model{
     /* fonction pour donner les recettes qui correspondent à la chaîne de caractères
     taper dans la grande barre de recherche*/
     getBrowseList(wordSearched, allRecipes) {
-        //const allRecipes = await this.getRecipes();
-        console.log(allRecipes)
-        //console.log(wordSearched)
         let finalSort = new Set(); //liste des recette qui matchent
-        allRecipes.forEach(recipe => {
+
+        allRecipes.filter(recipe => {
             if(recipe.name.toLowerCase().includes(wordSearched)){
                 finalSort.add(recipe)
             } else if(recipe.description.toLowerCase().includes(wordSearched)){
@@ -71,7 +69,7 @@ class Model{
                 })
             }
         })
-        //console.log(finalSort)
+        
         return(finalSort)
     }
 
