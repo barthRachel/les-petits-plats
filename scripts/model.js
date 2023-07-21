@@ -54,22 +54,19 @@ class Model{
     /* fonction pour donner les recettes qui correspondent à la chaîne de caractères
     taper dans la grande barre de recherche*/
     getBrowseList(wordSearched, allRecipes) {
-        let finalSort = new Set(); //liste des recette qui matchent
 
-        allRecipes.filter(recipe => {
-            if(recipe.name.toLowerCase().includes(wordSearched)){
-                finalSort.add(recipe)
-            } else if(recipe.description.toLowerCase().includes(wordSearched)){
-                finalSort.add(recipe)
-            } else {
-                (recipe.ingredients).forEach(ing => {
-                    if(ing.ingredient.toLowerCase().includes(wordSearched)){
-                        finalSort.add(recipe)
-                    }
-                })
+        let finalSort = allRecipes.filter(
+            recipe => recipe.name.toLowerCase().includes(wordSearched) ||
+            recipe.description.toLowerCase().includes(wordSearched)
+        );
+        
+        allRecipes.map(recipe => {
+            let ingredientsThatMatch = recipe.ingredients.filter(ingr => ingr.ingredient.toLowerCase().includes(wordSearched));
+            if(ingredientsThatMatch.length && !finalSort.includes(recipe)) {
+                finalSort.push({...recipe})
             }
         })
-        
+
         return(finalSort)
     }
 
