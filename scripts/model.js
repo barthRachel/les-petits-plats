@@ -63,7 +63,7 @@ class Model{
         allRecipes.map(recipe => {
             let ingredientsThatMatch = recipe.ingredients.filter(ingr => ingr.ingredient.toLowerCase().includes(wordSearched));
             if(ingredientsThatMatch.length && !finalSort.includes(recipe)) {
-                finalSort.push({...recipe})
+                finalSort.push(recipe)
             }
         })
 
