@@ -6,6 +6,15 @@
     <link rel="icon" type="image/png" href="assets/icons/favicon.png">
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <script src="scripts/model.js"></script>
+    <script src="scripts/recipesView.js"></script>
+    <script src="scripts/controller.js"></script>
+    <script>
+      let controller = new Controller();
+      controller.init();
+    </script>
+    
     <title>Les petits plats</title>
   </head>
 
@@ -105,17 +114,4 @@
       </main>
     </div>
   </body>
-  
-  <script src="scripts/model.js"></script>
-  <script src="scripts/recipesView.js"></script>
-  <script src="scripts/controller.js"></script>
-  <script>
-    let controller = new Controller();
-    controller.init();
-
-    /*controller.showIngredients();
-    controller.showAppliance();
-    controller.showUstensils();*/
-  </script>
-  <script src="scripts/utils/search.js"></script>
 </html>

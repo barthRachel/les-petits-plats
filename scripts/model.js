@@ -55,17 +55,22 @@ class Model{
     taper dans la grande barre de recherche*/
     getBrowseList(wordSearched, allRecipes) {
 
-        let finalSort = allRecipes.filter(
-            recipe => recipe.name.toLowerCase().includes(wordSearched) ||
-            recipe.description.toLowerCase().includes(wordSearched)
-        );
-        
-        allRecipes.map(recipe => {
-            let ingredientsThatMatch = recipe.ingredients.filter(ingr => ingr.ingredient.toLowerCase().includes(wordSearched));
-            if(ingredientsThatMatch.length && !finalSort.includes(recipe)) {
-                finalSort.push(recipe)
+        let allRecipesArray = Array.from(allRecipes)
+        let finalSort = new Set();
+
+        for(let i = 0 ; i < allRecipesArray.length ; i++){
+            if(allRecipesArray[i].name.toLowerCase().includes(wordSearched)){
+                finalSort.add(allRecipesArray[i])
+            } else if(allRecipesArray[i].description.toLowerCase().includes(wordSearched)){
+                finalSort.add(allRecipesArray[i])
+            } else {
+                for(let j = 0 ; j < allRecipesArray[i].ingredients.length ; j++) {
+                    if(allRecipesArray[i].ingredients[j].ingredient.toLowerCase().includes(wordSearched)){
+                        finalSort.add(allRecipesArray[i])
+                    }
+                }
             }
-        })
+        }
 
         return(finalSort)
     }
